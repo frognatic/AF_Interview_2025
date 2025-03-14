@@ -6,7 +6,6 @@ using Cysharp.Threading.Tasks;
 using MessagePipe;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 namespace AF_Interview.Systems
 {
@@ -96,12 +95,11 @@ namespace AF_Interview.Systems
             List<Item> itemSaveDataList = new();
             foreach (var startedItem in _itemsLibrary.GetItemsLibraryDataModel().InitialItems)
             {
-                var shouldAdd = ProbabilityUtilities.IsSuccess(startedItem.SpawnChance);
+                var shouldAdd = RandUtilities.CanProceed(startedItem.SpawnChance);
 
                 if (shouldAdd)
                 {
-                    // For Random.Range int maximum parameter is exclusive, so we need to add +1
-                    var amount = Random.Range(startedItem.SpawnAmountRange.x, startedItem.SpawnAmountRange.y + 1);
+                    var amount = RandUtilities.GetRandomValueFromRange(startedItem.SpawnAmountRange);
                     
                     Item saveDataModel = new Item(startedItem.ItemData, amount);
                     itemSaveDataList.Add(saveDataModel);
