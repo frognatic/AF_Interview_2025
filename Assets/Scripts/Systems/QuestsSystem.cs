@@ -1,12 +1,20 @@
 using System;
+using AF_Interview.Quests;
 using Cysharp.Threading.Tasks;
 using MessagePipe;
+using UnityEngine;
 using Zenject;
 
 namespace AF_Interview.Systems
 {
     public class QuestsSystem : SystemBase
     {
+        #region Serialized Fields
+
+        [SerializeField] protected QuestsLibrary _questsLibrary;
+
+        #endregion
+        
         #region Override Methods
 
         public override Type[] BindingContractTypes => new Type[]
@@ -24,8 +32,8 @@ namespace AF_Interview.Systems
 
         public override async UniTask Init()
         {
-            
             IsReady = true;
+            await UniTask.CompletedTask;
         }
 
         #endregion

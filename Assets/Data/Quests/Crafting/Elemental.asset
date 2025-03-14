@@ -16,8 +16,9 @@ MonoBehaviour:
     _questId: 1
     _questName: Elemental
     _questType: 0
+    _craftingMachinesToUnlock:
+    - {fileID: 11400000, guid: f74ed02dac4b377458f5a985cd4e9166, type: 2}
     _finishRequirements:
       _serializedList:
       - Key: {fileID: 11400000, guid: a8c29438bc9004043aed69c5dc39e66f, type: 2}
         Value: 5
-    _unlocks: 
