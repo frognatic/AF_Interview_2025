@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Enchanter
   m_EditorClassIdentifier: 
   _dataModel:
-    _itemId: 2
-    _itemName: Enchanter
-    _itemDescription: Infuses steel-based items with Ember Dust
+    _machineId: 2
+    _machineName: Enchanter
+    _machineDescription: Infuses steel-based items with Ember Dust

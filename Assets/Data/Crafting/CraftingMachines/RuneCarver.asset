@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: RuneCarver
   m_EditorClassIdentifier: 
   _dataModel:
-    _itemId: 3
-    _itemName: Rune Carver
-    _itemDescription: Adds advanced runes or transformations to items
+    _machineId: 3
+    _machineName: Rune Carver
+    _machineDescription: Adds advanced runes or transformations to items

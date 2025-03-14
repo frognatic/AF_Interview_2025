@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Smelter
   m_EditorClassIdentifier: 
   _dataModel:
-    _itemId: 0
-    _itemName: Smelter
-    _itemDescription: Converts Iron Ore into Iron Ingot
+    _machineId: 0
+    _machineName: Smelter
+    _machineDescription: Converts Iron Ore into Iron Ingot

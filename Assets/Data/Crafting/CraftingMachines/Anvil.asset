@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Anvil
   m_EditorClassIdentifier: 
   _dataModel:
-    _itemId: 1
-    _itemName: Anvil
-    _itemDescription: Forges Steel Ingot from Iron Ingot and Fire Shard
+    _machineId: 1
+    _machineName: Anvil
+    _machineDescription: Forges Steel Ingot from Iron Ingot and Fire Shard

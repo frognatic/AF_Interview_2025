@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DragonForge
   m_EditorClassIdentifier: 
   _dataModel:
-    _itemId: 4
-    _itemName: Dragon Forge
-    _itemDescription: Handles high-tier forging with Dragon Scale
+    _machineId: 4
+    _machineName: Dragon Forge
+    _machineDescription: Handles high-tier forging with Dragon Scale

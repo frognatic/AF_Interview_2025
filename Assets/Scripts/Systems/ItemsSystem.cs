@@ -55,19 +55,6 @@ namespace AF_Interview.Systems
         #endregion
         
         #region Public Methods
-
-        public void IterateAllItems()
-        {
-            foreach (var item in _resourcesItemList)
-            {
-                Debug.LogWarning($"[RESOURCES] Item: {item.GetDataModel().ItemName}");
-            }
-            
-            foreach (var item in _craftedItemList)
-            {
-                Debug.LogWarning($"[CRAFTED] Item: {item.GetDataModel().ItemName}");
-            }
-        }
         
         #endregion
 
