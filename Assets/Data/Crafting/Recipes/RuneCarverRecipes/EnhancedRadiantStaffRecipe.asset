@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a5d8a7cd660ba459ab0f88fdb7799d, type: 3}
+  m_Name: EnhancedRadiantStaffRecipe
+  m_EditorClassIdentifier: 
+  _dataModel:
+    _ingredients:
+      _serializedList:
+      - Key: {fileID: 11400000, guid: a65f31060de8c144cb572e38c18625e9, type: 2}
+        Value: 1
+      - Key: {fileID: 11400000, guid: 23616d10d3e57da46a4b2bc8da52406f, type: 2}
+        Value: 1
+    _craftingResults:
+      _serializedList:
+      - Key: {fileID: 11400000, guid: 7fd67495573259046a2cf3403050908a, type: 2}
+        Value: 1
+    _craftingTimeInSecondsInSeconds: 5
+    _craftingSuccessRateInPercent: 80
+    _requiredRequiredCraftingMachine: {fileID: 11400000, guid: 23f4405245c4cc04a8862bc2e680fcae, type: 2}

@@ -174,6 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c9a68a53c0e82343ad188d7bc909c7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _craftingMachinesLibrary: {fileID: 11400000, guid: d2b8fb2e861418d46911cda730fef6e5, type: 2}
+  _recipesLibrary: {fileID: 11400000, guid: 03648b4501cdbf44d99e349348297964, type: 2}
 --- !u!1 &6178952439497750035
 GameObject:
   m_ObjectHideFlags: 0
