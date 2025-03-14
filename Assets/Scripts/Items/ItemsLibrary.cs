@@ -5,7 +5,7 @@ using UnityEngine;
 namespace AF_Interview.Items
 {
     [Serializable]
-    [CreateAssetMenu(fileName = "New Items Library", menuName = "Data/Items/Items Library")]
+    [CreateAssetMenu(fileName = "ItemsLibrary", menuName = "Data/Items/ItemsLibrary")]
     public class ItemsLibrary : ScriptableObject
     {
         #region Serialized Fields
