@@ -15,7 +15,7 @@ namespace AF_Interview.Quests
 
         #region Public Methods
 
-        public QuestsLibraryDataModel GetQuestsLibraryDataModel()
+        public QuestsLibraryDataModel GetDataModel()
         {
             return _questsLibraryDataModel;
         }

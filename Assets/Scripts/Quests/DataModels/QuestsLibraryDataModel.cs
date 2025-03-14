@@ -9,13 +9,15 @@ namespace AF_Interview.Quests
     {
         #region Serialized Fields
 
-        [SerializeField] protected List<QuestBase> _quests = new();
+        [SerializeField] protected List<QuestBaseSO> _quests = new();
+        [SerializeField] protected List<InitialQuestsDataModel> _initialQuests = new();
 
         #endregion
 
         #region Properties
 
-        public List<QuestBase> Quests { get => _quests; set => _quests = value; }
+        public List<QuestBaseSO> Quests { get => _quests; set => _quests = value; }
+        public List<InitialQuestsDataModel> InitialQuests { get => _initialQuests; set => _initialQuests = value; }
 
         #endregion
     }

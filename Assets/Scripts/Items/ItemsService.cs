@@ -3,18 +3,18 @@ using Zenject;
 
 namespace AF_Interview.Items
 {
-    public interface IItemsFactory
+    public interface IItemsService
     {
         List<Item> GetItems();
         void Init(List<Item> items);
     }
     
-    public class ItemsFactory : IItemsFactory
+    public class ItemsService : IItemsService
     {
         private List<Item> _items = new List<Item>();
 
         [Inject]
-        public ItemsFactory()
+        public ItemsService()
         {
         }
         

@@ -20,5 +20,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f74ed02dac4b377458f5a985cd4e9166, type: 2}
     _finishRequirements:
       _serializedList:
-      - Key: {fileID: 11400000, guid: a8c29438bc9004043aed69c5dc39e66f, type: 2}
-        Value: 5
+      - Key: {fileID: 11400000, guid: 3b1c5b437ac36874a9aa0ba9cfba643e, type: 2}
+        Value: 2

@@ -31,3 +31,25 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ea5e0e86366dbc34889251d820604bed, type: 2}
     - {fileID: 11400000, guid: 29cd93ae1088c7d4e9b1bc8efc086c00, type: 2}
     - {fileID: 11400000, guid: e16e5b4b72b289046b7d9b3e17968b2f, type: 2}
+    _initialItems:
+    - _itemData: {fileID: 11400000, guid: 13a6ffd2596c33448be0759c931b87d0, type: 2}
+      _spawnAmountRange: {x: 3, y: 5}
+      _spawnChance: 100
+    - _itemData: {fileID: 11400000, guid: ab363fad2af81ca40a442d2ca3bb70e5, type: 2}
+      _spawnAmountRange: {x: 1, y: 3}
+      _spawnChance: 100
+    - _itemData: {fileID: 11400000, guid: c2225de7dc0a81946b5ced94f2e0c190, type: 2}
+      _spawnAmountRange: {x: 0, y: 2}
+      _spawnChance: 100
+    - _itemData: {fileID: 11400000, guid: 23616d10d3e57da46a4b2bc8da52406f, type: 2}
+      _spawnAmountRange: {x: 0, y: 2}
+      _spawnChance: 100
+    - _itemData: {fileID: 11400000, guid: eb208758fe556a148826f93fab778bb8, type: 2}
+      _spawnAmountRange: {x: 0, y: 1}
+      _spawnChance: 100
+    - _itemData: {fileID: 11400000, guid: 29cd93ae1088c7d4e9b1bc8efc086c00, type: 2}
+      _spawnAmountRange: {x: 1, y: 1}
+      _spawnChance: 25
+    - _itemData: {fileID: 11400000, guid: e16e5b4b72b289046b7d9b3e17968b2f, type: 2}
+      _spawnAmountRange: {x: 1, y: 1}
+      _spawnChance: 25

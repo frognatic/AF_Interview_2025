@@ -19,7 +19,7 @@ namespace AF_Interview.Systems
 
         #region Injected Fields
 
-        [Inject] private IItemsFactory _itemsFactory;
+        [Inject] private IItemsService _itemsService;
 
         #endregion
         
@@ -48,8 +48,8 @@ namespace AF_Interview.Systems
         }
         public override void InstallBindings(DiContainer container, MessagePipeOptions messagePipeOptions)
         {
-            container.Bind<IItemsFactory>()
-                .To<ItemsFactory>()
+            container.Bind<IItemsService>()
+                .To<ItemsService>()
                 .AsSingle();
         }
 
@@ -66,7 +66,7 @@ namespace AF_Interview.Systems
         
         #region Public Methods
         
-        public List<Item> GetItems() => _itemsFactory.GetItems();
+        public List<Item> GetItems() => _itemsService.GetItems();
         
         #endregion
 
@@ -92,7 +92,7 @@ namespace AF_Interview.Systems
 
         private void PrepareStartInventoryItems()
         {
-            List<Item> itemSaveDataList = new();
+            List<Item> initialItems = new();
             foreach (var startedItem in _itemsLibrary.GetItemsLibraryDataModel().InitialItems)
             {
                 var shouldAdd = RandUtilities.CanProceed(startedItem.SpawnChance);
@@ -101,12 +101,12 @@ namespace AF_Interview.Systems
                 {
                     var amount = RandUtilities.GetRandomValueFromRange(startedItem.SpawnAmountRange);
                     
-                    Item saveDataModel = new Item(startedItem.ItemData, amount);
-                    itemSaveDataList.Add(saveDataModel);
+                    Item item = new Item(startedItem.ItemData, amount);
+                    initialItems.Add(item);
                 }
             }
             
-            _itemsFactory.Init(itemSaveDataList);
+            _itemsService.Init(initialItems);
         }
 
         #endregion
