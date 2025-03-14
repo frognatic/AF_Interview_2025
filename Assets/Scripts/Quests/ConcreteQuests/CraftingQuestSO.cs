@@ -3,7 +3,7 @@ using UnityEngine;
 namespace AF_Interview.Quests
 {
     [CreateAssetMenu(fileName = "CraftingQuest", menuName = "Data/Quests/CraftingQuest")]
-    public class CraftingQuest : QuestBase
+    public class CraftingQuestSO : QuestBase
     {
         #region Serialized Fields
 

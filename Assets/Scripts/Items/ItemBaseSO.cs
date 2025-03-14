@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AF_Interview.Items
 {
-    public abstract class ItemBase : ScriptableObject, IItemBaseDataModel
+    public abstract class ItemBaseSO : ScriptableObject, IItemBaseDataModel
     {
         #region Properties
         

@@ -10,13 +10,13 @@ namespace AF_Interview.Quests
     {
         #region Serialized Fields
         
-        [SerializeField] protected SerializedDictionary<ItemBase, int> _finishRequirements;
+        [SerializeField] protected SerializedDictionary<ItemBaseSO, int> _finishRequirements;
 
         #endregion
 
         #region Properties 
         
-        public SerializedDictionary<ItemBase, int> FinishRequirements { get => _finishRequirements; set => _finishRequirements = value; }
+        public SerializedDictionary<ItemBaseSO, int> FinishRequirements { get => _finishRequirements; set => _finishRequirements = value; }
         
         #endregion
     }

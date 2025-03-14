@@ -1,25 +1,11 @@
 using System;
-using UnityEngine;
+using AF_Interview.Items.DataModels;
 
 namespace AF_Interview.Items
 {
     [Serializable]
-    public class CraftedItemDataModel
+    public class CraftedItemDataModel : ItemBaseDataModel
     {
-        #region Serialized Fields
-
-        [SerializeField] protected int _machineId;
-        [SerializeField] protected string _machineName;
-        [SerializeField] protected string _machineDescription;
-
-        #endregion
-
-        #region Properties
-
-        public int MachineId { get => _machineId; set => _machineId = value; }
-        public string MachineName { get => _machineName; set => _machineName = value; }
-        public string MachineDescription { get => _machineDescription; set => _machineDescription = value; }
-
-        #endregion
+        
     }
 }

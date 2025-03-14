@@ -9,14 +9,17 @@ namespace AF_Interview.Items.DataModels
     {
         #region Serialized Fields
 
-        [SerializeField] protected List<ItemBase> _items = new();
+        [SerializeField] protected List<ItemBaseSO> _items = new();
+        [SerializeField] protected List<InitialItemsDataModel> _initialItems = new();
 
         #endregion
 
         #region Properties
 
-        public List<ItemBase> Items { get => _items; set => _items = value; }
+        public List<ItemBaseSO> Items { get => _items; set => _items = value; }
+        public List<InitialItemsDataModel> InitialItems { get => _initialItems; set => _initialItems = value; }
 
         #endregion
     }
 }
+

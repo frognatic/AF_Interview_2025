@@ -9,13 +9,13 @@ namespace AF_Interview.Crafting
     {
         #region Serialized Fields
 
-        [SerializeField] protected List<CraftingMachine> _craftingMachines = new();
+        [SerializeField] protected List<CraftingMachineSO> _craftingMachines = new();
 
         #endregion
 
         #region Properties
 
-        public List<CraftingMachine> CraftingMachines { get => _craftingMachines; set => _craftingMachines = value; }
+        public List<CraftingMachineSO> CraftingMachines { get => _craftingMachines; set => _craftingMachines = value; }
 
         #endregion
     }
