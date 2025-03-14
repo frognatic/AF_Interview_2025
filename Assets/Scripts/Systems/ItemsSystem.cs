@@ -100,9 +100,11 @@ namespace AF_Interview.Systems
                 if (shouldAdd)
                 {
                     var amount = RandUtilities.GetRandomValueFromRange(startedItem.SpawnAmountRange);
-                    
-                    Item item = new Item(startedItem.ItemData, amount);
-                    initialItems.Add(item);
+                    if (amount > 0)
+                    {
+                        Item item = new Item(startedItem.ItemData, amount);
+                        initialItems.Add(item);    
+                    }
                 }
             }
             
