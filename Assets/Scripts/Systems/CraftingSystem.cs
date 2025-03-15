@@ -19,7 +19,22 @@ namespace AF_Interview.Systems
         
         #region Injected Fields
 
-        [Inject] private ICraftingService _craftingService;
+        [Inject] private RecipesFactoryProvider _recipesFactoryProvider;
+        [Inject] private CraftingMachinesFactoryProvider _craftingMachinesFactoryProvider;
+
+        #endregion
+        
+        #region Non-Serialized Fields
+
+        private readonly List<CraftingMachine> _craftingMachines = new List<CraftingMachine>();
+        private readonly List<Recipe> _recipes = new List<Recipe>();
+
+        #endregion
+        
+        #region Properties
+
+        public List<CraftingMachine> CraftingMachines => _craftingMachines;
+        public List<Recipe> Recipes => _recipes;
 
         #endregion
         
@@ -35,8 +50,9 @@ namespace AF_Interview.Systems
         }
         public override void InstallBindings(DiContainer container, MessagePipeOptions messagePipeOptions)
         {
-            container.Bind<ICraftingService>()
-                .To<CraftingService>()
+            container.Bind<CraftingMachinesFactoryProvider>()
+                .AsSingle();
+            container.Bind<RecipesFactoryProvider>()
                 .AsSingle();
         }
 
@@ -52,8 +68,6 @@ namespace AF_Interview.Systems
 
         #region Public Methods
 
-        public List<CraftingMachine> GetCraftingMachines() => _craftingService.GetCraftingMachines();
-        public List<Recipe> GetRecipes() => _craftingService.GetRecipes();
 
         #endregion
 
@@ -61,34 +75,18 @@ namespace AF_Interview.Systems
 
         private void PrepareStartCraftingElements()
         {
-            _craftingService.Init(GetStartedCraftingMachines(), GetStartedRecipes());
-        }
-
-        private List<CraftingMachine> GetStartedCraftingMachines()
-        {
-            List<CraftingMachine> initialCraftingMachines = new();
-
-            foreach (var startedQuest in _craftingMachinesLibrary.GetDataModel().InitialCraftingMachines)
+            foreach (var craftingMachineSO in _craftingMachinesLibrary.CraftingMachines)
             {
-                CraftingMachine craftingMachine = new CraftingMachine(startedQuest.CraftingMachineData, true);
-                initialCraftingMachines.Add(craftingMachine);
-            }
-            
-            return initialCraftingMachines;
-        }
-
-        private List<Recipe> GetStartedRecipes()
-        {
-            List<Recipe> initialRecipes = new();
-
-            // by default unlocked all recipes, but we can of course prepare started recipe list
-            foreach (var recipeSO in _recipesLibrary.GetDataModel().Recipes)
-            {
-                Recipe recipe = new Recipe(recipeSO);
-                initialRecipes.Add(recipe);
+                bool isMachineUnlockedOnStart = _craftingMachinesLibrary.InitialCraftingMachines.Contains(craftingMachineSO);
+                var craftingMachine = _craftingMachinesFactoryProvider.CreateCraftingMachine(craftingMachineSO, isMachineUnlockedOnStart);
+                _craftingMachines.Add(craftingMachine);
             }
 
-            return initialRecipes;
+            foreach (var recipeSO in _recipesLibrary.Recipes)
+            {
+                var recipe = _recipesFactoryProvider.CreateRecipe(recipeSO);
+                _recipes.Add(recipe);
+            }
         }
 
         #endregion

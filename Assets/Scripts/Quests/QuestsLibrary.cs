@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AF_Interview.Quests
@@ -9,16 +10,15 @@ namespace AF_Interview.Quests
     {
         #region Serialized Fields
 
-        [SerializeField] private QuestsLibraryDataModel _questsLibraryDataModel;
+        [SerializeField] protected List<QuestSO> _quests = new();
+        [SerializeField] protected List<QuestSO> _initialQuests = new();
 
         #endregion
 
-        #region Public Methods
+        #region Properties
 
-        public QuestsLibraryDataModel GetDataModel()
-        {
-            return _questsLibraryDataModel;
-        }
+        public List<QuestSO> Quests { get => _quests; set => _quests = value; }
+        public List<QuestSO> InitialQuests { get => _initialQuests; set => _initialQuests = value; }
 
         #endregion
     }

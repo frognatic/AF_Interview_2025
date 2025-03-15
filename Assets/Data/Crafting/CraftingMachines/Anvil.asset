@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9cbaa9b2dde2334c9036643b515280d, type: 3}
   m_Name: Anvil
   m_EditorClassIdentifier: 
-  _dataModel:
-    _machineId: 1
-    _machineName: Anvil
-    _machineDescription: Forges Steel Ingot from Iron Ingot and Fire Shard
+  _machineId: 2
+  _machineName: Anvil
+  _machineDescription: Forges Steel Ingot from Iron Ingot and Fire Shard
+  _availableRecipes:
+  - {fileID: 11400000, guid: c0b1299f0a8fa3542941f8e059662153, type: 2}
+  - {fileID: 11400000, guid: c9ca9781e0d6e0c40b59a7ecfb8b3d59, type: 2}

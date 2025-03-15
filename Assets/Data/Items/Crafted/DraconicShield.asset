@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4baa9334771ffe641b9841f7245539ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c12369bd9c690f4196b73d92127f8de, type: 3}
   m_Name: DraconicShield
   m_EditorClassIdentifier: 
-  _dataModel:
-    _itemId: 11
-    _itemName: Draconic Shield
-    _itemDescription: Advanced shield reinforced with Dragon Scale
+  _itemId: 11
+  _itemName: Draconic Shield
+  _itemDescription: Advanced shield reinforced with Dragon Scale
+  _itemType: 1

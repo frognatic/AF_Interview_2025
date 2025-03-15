@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9cbaa9b2dde2334c9036643b515280d, type: 3}
   m_Name: RuneCarver
   m_EditorClassIdentifier: 
-  _dataModel:
-    _machineId: 3
-    _machineName: Rune Carver
-    _machineDescription: Adds advanced runes or transformations to items
+  _machineId: 4
+  _machineName: Rune Carver
+  _machineDescription: Adds advanced runes or transformations to items
+  _availableRecipes:
+  - {fileID: 11400000, guid: 4e946617d67428a49813dcede6ae5c03, type: 2}
+  - {fileID: 11400000, guid: 6a10ed5d5546d264c9209964d432f91d, type: 2}

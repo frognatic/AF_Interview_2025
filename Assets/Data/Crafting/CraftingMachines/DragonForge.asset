@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9cbaa9b2dde2334c9036643b515280d, type: 3}
   m_Name: DragonForge
   m_EditorClassIdentifier: 
-  _dataModel:
-    _machineId: 4
-    _machineName: Dragon Forge
-    _machineDescription: Handles high-tier forging with Dragon Scale
+  _machineId: 5
+  _machineName: Dragon Forge
+  _machineDescription: Handles high-tier forging with Dragon Scale
+  _availableRecipes:
+  - {fileID: 11400000, guid: 2797dee034cb0a645bbe50bcc06ec119, type: 2}
+  - {fileID: 11400000, guid: 9f43128d2669b8a499a4ea61a1ddab7b, type: 2}

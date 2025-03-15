@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AF_Interview.Items;
 using AF_Interview.Utilities;
 using Cysharp.Threading.Tasks;
@@ -18,21 +19,20 @@ namespace AF_Interview.Systems
         #endregion
 
         #region Injected Fields
-
-        [Inject] private IItemsService _itemsService;
+        
+        [Inject] private ItemsFactoryProvider _itemsFactoryProvider;
 
         #endregion
-        
-        #region Non-serialized Fields
 
-        private List<ResourcesItemSO> _resourcesItemList = new();
-        private List<CraftedItemSO> _craftedItemList = new();
+        #region Non-Serialized Fields
+
+        private readonly List<Item> _items = new List<Item>();
 
         #endregion
 
         #region Properties
 
-        public List<ResourcesItemSO> ResourcesItemList => _resourcesItemList;
+        public List<Item> Items => _items;
 
         #endregion
         
@@ -48,14 +48,12 @@ namespace AF_Interview.Systems
         }
         public override void InstallBindings(DiContainer container, MessagePipeOptions messagePipeOptions)
         {
-            container.Bind<IItemsService>()
-                .To<ItemsService>()
+            container.Bind<ItemsFactoryProvider>()
                 .AsSingle();
         }
 
         public override async UniTask Init()
         {
-            PrepareResources().Forget();
             PrepareStartInventoryItems();
             
             IsReady = true;
@@ -66,49 +64,45 @@ namespace AF_Interview.Systems
         
         #region Public Methods
         
-        public List<Item> GetItems() => _itemsService.GetItems();
+        public void AddItem(Item item, int amount)
+        {
+            
+        }
+
+        public void RemoveItem(Item item, int amountToRemove)
+        {
+            
+        }
+
+        public List<Item> GetAllAvailableItems()
+        {
+            return _items.Where(x => x.Amount > 0).ToList();
+        }
         
         #endregion
 
         #region Private Methods
-
-        private async UniTaskVoid PrepareResources()
-        {
-            foreach (var item in _itemsLibrary.GetItemsLibraryDataModel().Items)
-            {
-                if (item is ResourcesItemSO resourcesItem)
-                {
-                    _resourcesItemList.Add(resourcesItem);
-                }
-
-                if (item is CraftedItemSO craftedItem)
-                {
-                    _craftedItemList.Add(craftedItem);
-                }
-            }
-            
-            await UniTask.CompletedTask;
-        }
-
+        
         private void PrepareStartInventoryItems()
         {
-            List<Item> initialItems = new();
-            foreach (var startedItem in _itemsLibrary.GetItemsLibraryDataModel().InitialItems)
+            foreach (var itemSO in _itemsLibrary.AllItems)
             {
-                var shouldAdd = RandUtilities.CanProceed(startedItem.SpawnChance);
+                var item = _itemsFactoryProvider.CreateItem(itemSO, GetStartedItemAmount(itemSO));
+                _items.Add(item);
+            }
+        }
 
-                if (shouldAdd)
-                {
-                    var amount = RandUtilities.GetRandomValueFromRange(startedItem.SpawnAmountRange);
-                    if (amount > 0)
-                    {
-                        Item item = new Item(startedItem.ItemData, amount);
-                        initialItems.Add(item);    
-                    }
-                }
+        private int GetStartedItemAmount(ItemSO itemData)
+        {
+            var initialItemData = _itemsLibrary.InitialItemsData.Find(x => x.ItemData == itemData);
+
+            if (initialItemData == null)
+            {
+                return 0;
             }
             
-            _itemsService.Init(initialItems);
+            var canProceed = RandUtilities.CanProceed(initialItemData.SpawnChance);
+            return canProceed ? RandUtilities.GetRandomValueFromRange(initialItemData.SpawnAmountRange) : 0;
         }
 
         #endregion

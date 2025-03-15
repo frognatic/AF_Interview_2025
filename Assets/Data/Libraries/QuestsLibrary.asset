@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb7fc3d53691db4f8e2945e31f80653, type: 3}
   m_Name: QuestsLibrary
   m_EditorClassIdentifier: 
-  _questsLibraryDataModel:
-    _quests:
-    - {fileID: 11400000, guid: 02ff748e30891d14e9d33a35c7b556fa, type: 2}
-    - {fileID: 11400000, guid: 02e768981bdd2024abe6727f791f89d0, type: 2}
-    _initialQuests:
-    - _questData: {fileID: 11400000, guid: 02ff748e30891d14e9d33a35c7b556fa, type: 2}
-    - _questData: {fileID: 11400000, guid: 02e768981bdd2024abe6727f791f89d0, type: 2}
+  _quests:
+  - {fileID: 11400000, guid: 02e768981bdd2024abe6727f791f89d0, type: 2}
+  - {fileID: 11400000, guid: 02ff748e30891d14e9d33a35c7b556fa, type: 2}
+  _initialQuests:
+  - {fileID: 11400000, guid: 02e768981bdd2024abe6727f791f89d0, type: 2}
+  - {fileID: 11400000, guid: 02ff748e30891d14e9d33a35c7b556fa, type: 2}

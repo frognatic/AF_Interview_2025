@@ -1,5 +1,5 @@
 using System;
-using AF_Interview.Items.DataModels;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AF_Interview.Items
@@ -10,16 +10,15 @@ namespace AF_Interview.Items
     {
         #region Serialized Fields
 
-        [SerializeField] private ItemsLibraryDataModel _itemsLibraryDataModel;
+        [SerializeField] protected List<ItemSO> _allItems = new();
+        [SerializeField] protected List<InitialItemsData> _initialItemsData = new();
 
         #endregion
 
-        #region Public Methods
+        #region Properties
 
-        public ItemsLibraryDataModel GetItemsLibraryDataModel()
-        {
-            return _itemsLibraryDataModel;
-        }
+        public List<ItemSO> AllItems { get => _allItems; set => _allItems = value; }
+        public List<InitialItemsData> InitialItemsData { get => _initialItemsData; set => _initialItemsData = value; }
 
         #endregion
     }

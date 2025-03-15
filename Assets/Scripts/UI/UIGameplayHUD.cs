@@ -1,4 +1,3 @@
-using System;
 using AF_Interview.Systems;
 using UnityEngine;
 using Zenject;
@@ -40,35 +39,35 @@ namespace AF_Interview.UI
 
         private void CreateInventoryContent()
         {
-            foreach (var item in _itemSystem.GetItems())
-            {
-                var itemDisplay = Instantiate(_textLabelPrefab, _inventoryContent);
-
-                string itemDisplayText = $"{item.ItemData.GetDataModel().ItemName} || {item.Amount}";
-                itemDisplay.SetText(itemDisplayText);
-            }
+            // foreach (var item in _itemSystem.GetItems())
+            // {
+            //     var itemDisplay = Instantiate(_textLabelPrefab, _inventoryContent);
+            //
+            //     string itemDisplayText = $"{item.ItemData.ItemName} || {item.Amount}";
+            //     itemDisplay.SetText(itemDisplayText);
+            // }
         }
 
         private void CreateQuestsContent()
         {
-            foreach (var quest in _questsSystem.GetQuests())
-            {
-                var questDisplay = Instantiate(_textLabelPrefab, _questsContent);
-
-                string questDisplayText = $"{quest.QuestData.GetDataModel().QuestName} || {quest.Progress[0].CurrentValue}/{quest.Progress[0].EndValue}";
-                questDisplay.SetText(questDisplayText);
-            }
+            // foreach (var quest in _questsSystem.GetQuests())
+            // {
+            //     var questDisplay = Instantiate(_textLabelPrefab, _questsContent);
+            //
+            //     string questDisplayText = $"{quest.QuestData.QuestName} || {quest.Progress[0].CurrentValue}/{quest.Progress[0].EndValue}";
+            //     questDisplay.SetText(questDisplayText);
+            // }
         }
 
         private void CreateForgeContent()
         {
-            foreach (var craftingMachine in _craftingSystem.GetCraftingMachines())
-            {
-                var craftingMachineDisplay = Instantiate(_textLabelPrefab, _forgeContent);
-
-                string craftingMachineText = $"{craftingMachine.CraftingMachineData.GetDataModel().MachineName}";
-                craftingMachineDisplay.SetText(craftingMachineText);
-            }
+            // foreach (var craftingMachine in _craftingSystem.GetCraftingMachines())
+            // {
+            //     var craftingMachineDisplay = Instantiate(_textLabelPrefab, _forgeContent);
+            //
+            //     string craftingMachineText = $"{craftingMachine.CraftingMachineData.MachineName}";
+            //     craftingMachineDisplay.SetText(craftingMachineText);
+            // }
         }
 
         #endregion

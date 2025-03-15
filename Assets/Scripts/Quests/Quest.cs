@@ -4,16 +4,27 @@ using System.Collections.Generic;
 namespace AF_Interview.Quests
 {
     [Serializable]
-    public abstract class Quest
+    public class Quest
     {
-        public QuestBaseSO QuestData { get; set; }
+        public QuestSO QuestData { get; set; }
         public bool IsFinished { get; set; }
-        public abstract List<QuestProgress> Progress { get; set; }
+        public List<QuestProgress> Progress { get; private set; }
 
-        public Quest(QuestBaseSO questData, bool isFinished = false)
+        public Quest(QuestSO questData)
         {
             QuestData = questData;
-            IsFinished = isFinished;
+            IsFinished = false;
+            
+            Progress = new List<QuestProgress>();
+            
+            foreach (var finishRequirement in questData.FinishRequirements)
+            {
+                Progress.Add(new QuestProgress
+                {
+                    CurrentValue = 0,
+                    EndValue = finishRequirement.Value
+                });
+            }
         }
     }
 

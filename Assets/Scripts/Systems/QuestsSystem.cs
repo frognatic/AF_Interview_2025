@@ -18,7 +18,19 @@ namespace AF_Interview.Systems
         
         #region Injected Fields
 
-        [Inject] private IQuestsService _questsService;
+        [Inject] private QuestsFactoryProvider _questsFactory;
+
+        #endregion
+        
+        #region Non-serialized Fields
+        
+        private List<Quest> _quests = new List<Quest>();
+        
+        #endregion
+
+        #region Properties
+
+        public List<Quest> Quests => _quests;
 
         #endregion
         
@@ -34,8 +46,7 @@ namespace AF_Interview.Systems
         }
         public override void InstallBindings(DiContainer container, MessagePipeOptions messagePipeOptions)
         {
-            container.Bind<IQuestsService>()
-                .To<QuestsService>()
+            container.Bind<QuestsFactoryProvider>()
                 .AsSingle();
         }
 
@@ -51,28 +62,17 @@ namespace AF_Interview.Systems
 
         #region Public Methods
 
-        public List<Quest> GetQuests() => _questsService.GetQuests();
-
         #endregion
 
         #region Private Methods
 
         private void PrepareStartQuests()
         {
-            List<Quest> initialQuests = new();
-
-            foreach (var startedQuest in _questsLibrary.GetDataModel().InitialQuests)
+            foreach (var startedQuest in _questsLibrary.InitialQuests)
             {
-                switch (startedQuest.QuestData.GetDataModel().QuestType)
-                {
-                    case QuestsTypes.Craft:
-                        CraftingQuest craftingQuest = new CraftingQuest(startedQuest.QuestData as CraftingQuestSO);
-                        initialQuests.Add(craftingQuest);
-                        break;
-                }
+                var quest = _questsFactory.CreateQuest(startedQuest);
+                _quests.Add(quest);
             }
-            
-            _questsService.Init(initialQuests);
         }
 
         #endregion

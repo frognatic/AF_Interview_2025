@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9cbaa9b2dde2334c9036643b515280d, type: 3}
   m_Name: Smelter
   m_EditorClassIdentifier: 
-  _dataModel:
-    _machineId: 0
-    _machineName: Smelter
-    _machineDescription: Converts Iron Ore into Iron Ingot
+  _machineId: 1
+  _machineName: Smelter
+  _machineDescription: Converts Iron Ore into Iron Ingot
+  _availableRecipes:
+  - {fileID: 11400000, guid: fbeb761b3c0233947a43e8e2e5d861f3, type: 2}
+  - {fileID: 11400000, guid: 70f504301a71f8844b5bfe9f451d1657, type: 2}

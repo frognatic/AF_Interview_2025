@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5674622aad66b44daa08aa1b1379ece, type: 3}
+  m_Script: {fileID: 11500000, guid: 525b254f1aece4c409a24a1b4ff20f19, type: 3}
   m_Name: LuckyCharm
   m_EditorClassIdentifier: 
-  _dataModel:
-    _itemId: 16
-    _itemName: Lucky Charm
-    _itemDescription: Increases success rate by 10 percentage points
-    _effect: SuccessRate
-    _effectValue: 10
+  _itemId: 16
+  _itemName: Lucky Charm
+  _itemDescription: Increases success rate by 10 percentage points
+  _itemType: 2
+  _bonusType: 0
+  _bonusValue: 10

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9cbaa9b2dde2334c9036643b515280d, type: 3}
   m_Name: Enchanter
   m_EditorClassIdentifier: 
-  _dataModel:
-    _machineId: 2
-    _machineName: Enchanter
-    _machineDescription: Infuses steel-based items with Ember Dust
+  _machineId: 3
+  _machineName: Enchanter
+  _machineDescription: Infuses steel-based items with Ember Dust
+  _availableRecipes:
+  - {fileID: 11400000, guid: cb137300c18e35a49adec3a2347128d7, type: 2}
+  - {fileID: 11400000, guid: edd3034ffdd938a448a832514fbebb3d, type: 2}
