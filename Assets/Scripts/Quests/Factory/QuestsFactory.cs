@@ -1,15 +1,15 @@
 namespace AF_Interview.Quests
 {
-    public class QuestsFactory : IQuestsFactory
+    public class UserQuestsFactory : IUserQuestsFactory
     {
-        public Quest CreateQuest(QuestSO data)
+        public UserQuest CreateUserQuest(QuestSO data)
         {
-            return new Quest(data);
+            return new UserQuest(data);
         }
     }
     
-    public interface IQuestsFactory
+    public interface IUserQuestsFactory
     {
-        Quest CreateQuest(QuestSO data);
+        UserQuest CreateUserQuest(QuestSO data);
     }
 }

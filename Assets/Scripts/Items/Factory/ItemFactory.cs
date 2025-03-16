@@ -1,15 +1,15 @@
 namespace AF_Interview.Items
 {
-    public class ItemsFactory : IItemsFactory
+    public class UserItemsFactory : IUserItemsFactory
     {
-        public Item CreateItem(ItemSO data, int amount)
+        public UserItem CreateUserItem(ItemSO data, int amount)
         {
-            return new Item(data, amount);
+            return new UserItem(data, amount);
         }
     }
     
-    public interface IItemsFactory
+    public interface IUserItemsFactory
     {
-        Item CreateItem(ItemSO data, int amount);
+        UserItem CreateUserItem(ItemSO data, int amount);
     }
 }

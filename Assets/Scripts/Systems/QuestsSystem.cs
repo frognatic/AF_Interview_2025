@@ -30,13 +30,13 @@ namespace AF_Interview.Systems
         
         #region Non-serialized Fields
         
-        private List<Quest> _quests = new List<Quest>();
+        private List<UserQuest> _quests = new List<UserQuest>();
         
         #endregion
 
         #region Properties
 
-        public List<Quest> Quests => _quests;
+        public List<UserQuest> Quests => _quests;
 
         #endregion
         
@@ -73,8 +73,8 @@ namespace AF_Interview.Systems
 
         public void TryUpdateQuestsProgressByFinishRecipe(Recipe recipe)
         {
-            List<Quest> updatedQuests = new();
-            List<Quest> completedQuests = new();
+            List<UserQuest> updatedQuests = new();
+            List<UserQuest> completedQuests = new();
 
             foreach (var craftingResult in recipe.RecipeData.CraftingResults)
             {
@@ -93,12 +93,12 @@ namespace AF_Interview.Systems
             
             foreach (var quest in updatedQuests)
             {
-                _questProgressUpdateEventPublisher.Publish(new QuestProgressUpdateEvent() { Quest = quest });
+                _questProgressUpdateEventPublisher.Publish(new QuestProgressUpdateEvent() { UserQuest = quest });
             }
 
             foreach (var quest in completedQuests)
             {
-                _questCompletedEventPublisher.Publish(new QuestCompletedEvent() { Quest = quest });
+                _questCompletedEventPublisher.Publish(new QuestCompletedEvent() { UserQuest = quest });
                 _craftingSystem.TryUnlockCraftingMachines(quest.QuestData.CraftingMachinesToUnlock);
             }
         }

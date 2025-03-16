@@ -7,13 +7,13 @@ using Zenject;
 
 namespace AF_Interview.Systems
 {
-    public class SceneLoaderSystem : SystemBase
+    public class SceneLoadingSystem : SystemBase
     {
         #region Override Methods
 
         public override Type[] BindingContractTypes => new Type[]
         {
-            typeof(SceneLoaderSystem)
+            typeof(SceneLoadingSystem)
         };
         public override void Construct()
         {
@@ -51,7 +51,6 @@ namespace AF_Interview.Systems
 
         private async UniTask LoadGameplay()
         {
-            await LoadSceneAsync(SceneNames.Gameplay, LoadSceneMode.Additive);
             await LoadSceneAsync(SceneNames.UIGameplay, LoadSceneMode.Additive);
             await UnloadSceneAsync(SceneNames.Loader);
         }

@@ -9,7 +9,7 @@ using Zenject;
 
 namespace AF_Interview.SceneControllers
 {
-    public class UIGameplaySceneController : BaseSceneController
+    public class UIGameplaySceneController : MonoBehaviour
     {
         #region Serialized Fields
 
@@ -46,10 +46,10 @@ namespace AF_Interview.SceneControllers
 
         #endregion
         
-        protected override void Start()
-        {
-            base.Start();
+        #region Private Methods
 
+        private void Start()
+        {
             PrepareInventoryPanel();
             PrepareQuestsPanel();
             PrepareBonusesPanel();
@@ -57,16 +57,14 @@ namespace AF_Interview.SceneControllers
 
             SubscribeToEvents();
         }
-
-        #region Private Methods
-
+        
         private void SubscribeToEvents()
         {
             var bag = DisposableBag.CreateBuilder();
 
-            _craftingStartedEventSubscriber.Subscribe(e => OnCraftingStarted(e.Recipe)).AddTo(bag);
-            _craftingFinishedEventSubscriber.Subscribe(e => OnCraftingFinished(e.CraftingResult, e.Recipe)).AddTo(bag);
-            _questProgressUpdateEventSubscriber.Subscribe(e => OnQuestProgress(e.Quest)).AddTo(bag);
+            _craftingStartedEventSubscriber.Subscribe(e => OnCraftingStarted()).AddTo(bag);
+            _craftingFinishedEventSubscriber.Subscribe(e => OnCraftingFinished()).AddTo(bag);
+            _questProgressUpdateEventSubscriber.Subscribe(e => OnQuestProgress()).AddTo(bag);
             
             _eventsBagDisposable = bag.Build();
         }
@@ -92,7 +90,7 @@ namespace AF_Interview.SceneControllers
         private void PrepareBonusesPanel()
         {
             _bonusesPanelDataModel ??= new UIBonusesPanelDataModel();
-            _bonusesPanelDataModel.Bonuses = _bonusSystem.Bonuses;
+            _bonusesPanelDataModel.Bonuses = _bonusSystem.ActiveBonuses;
             
             _bonusesPanel.Prepare(_bonusesPanelDataModel);
         }
@@ -107,19 +105,19 @@ namespace AF_Interview.SceneControllers
         
         // Events Responses
 
-        private void OnCraftingStarted(Recipe recipe)
+        private void OnCraftingStarted()
         {
             _inventoryPanelDataModel.AvailableItemsList = _itemSystem.GetAllAvailableItems();
             _inventoryPanel.RefreshSlots();
         }
         
-        private void OnCraftingFinished(CraftingResult craftingResult, Recipe recipe)
+        private void OnCraftingFinished()
         {
             _inventoryPanelDataModel.AvailableItemsList = _itemSystem.GetAllAvailableItems();
             _inventoryPanel.RefreshSlots();
         }
 
-        private void OnQuestProgress(Quest questProgress)
+        private void OnQuestProgress()
         {
             _questsPanelDataModel.Quest = _questsSystem.Quests;
             _questsPanel.Prepare(_questsPanelDataModel);

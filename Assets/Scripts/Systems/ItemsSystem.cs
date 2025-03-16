@@ -23,19 +23,19 @@ namespace AF_Interview.Systems
         [Inject] private readonly IPublisher<AddItemEvent> _addItemEventPublisher;
         [Inject] private readonly IPublisher<RemoveItemEvent> _removeItemEventPublisher;
         
-        [Inject] private ItemsFactoryProvider _itemsFactoryProvider;
+        [Inject] private UserItemsFactoryProvider _userItemsFactoryProvider;
 
         #endregion
 
         #region Non-Serialized Fields
 
-        private readonly List<Item> _items = new List<Item>();
+        private readonly List<UserItem> _userItems = new List<UserItem>();
 
         #endregion
 
         #region Properties
 
-        public List<Item> Items => _items;
+        public List<UserItem> UserItems => _userItems;
 
         #endregion
         
@@ -54,7 +54,7 @@ namespace AF_Interview.Systems
             container.BindMessageBroker<AddItemEvent>(messagePipeOptions);
             container.BindMessageBroker<RemoveItemEvent>(messagePipeOptions);
             
-            container.Bind<ItemsFactoryProvider>()
+            container.Bind<UserItemsFactoryProvider>()
                 .AsSingle();
         }
 
@@ -72,18 +72,18 @@ namespace AF_Interview.Systems
         
         public void AddItem(ItemSO itemData, int amount)
         {
-            var itemToAdd = _items.Find(x => x.ItemData == itemData);
+            var itemToAdd = _userItems.Find(x => x.ItemData == itemData);
             itemToAdd.Amount += amount;
             
-            _addItemEventPublisher.Publish(new() { Item = itemToAdd, Amount = amount });
+            _addItemEventPublisher.Publish(new() { UserItem = itemToAdd, Amount = amount });
         }
 
         public void RemoveItem(ItemSO itemData, int amountToRemove)
         {
-            var itemToDecreaseAmount = _items.Find(x => x.ItemData == itemData);
+            var itemToDecreaseAmount = _userItems.Find(x => x.ItemData == itemData);
             itemToDecreaseAmount.Amount = Mathf.Clamp(itemToDecreaseAmount.Amount -= amountToRemove, 0, int.MaxValue);
             
-            _removeItemEventPublisher.Publish(new() { Item = itemToDecreaseAmount, Amount = amountToRemove });
+            _removeItemEventPublisher.Publish(new() { UserItem = itemToDecreaseAmount, Amount = amountToRemove });
         }
 
         public bool HasRequiredItemAmount(ItemSO item, int amount)
@@ -99,14 +99,14 @@ namespace AF_Interview.Systems
             return requiredItem.Amount >= amount;
         }
 
-        public List<Item> GetAllAvailableItems()
+        public List<UserItem> GetAllAvailableItems()
         {
-            return _items.Where(x => x.Amount > 0).ToList();
+            return _userItems.Where(x => x.Amount > 0).ToList();
         }
         
-        public List<BonusItem> GetAllAvailableBonusItems()
+        public List<BonusUserItem> GetAllAvailableBonusItems()
         {
-            return _items.OfType<BonusItem>().ToList();
+            return _userItems.OfType<BonusUserItem>().ToList();
         }
         
         #endregion
@@ -117,8 +117,8 @@ namespace AF_Interview.Systems
         {
             foreach (var itemSO in _itemsLibrary.AllItems)
             {
-                var item = _itemsFactoryProvider.CreateItem(itemSO, GetStartedItemAmount(itemSO));
-                _items.Add(item);
+                var item = _userItemsFactoryProvider.CreateItem(itemSO, GetStartedItemAmount(itemSO));
+                _userItems.Add(item);
             }
         }
 

@@ -13,16 +13,16 @@ namespace AF_Interview.Quests
         {
         }
         
-        private readonly Dictionary<Type, IQuestsFactory> _factories = new Dictionary<Type, IQuestsFactory>()
+        private readonly Dictionary<Type, IUserQuestsFactory> _factories = new Dictionary<Type, IUserQuestsFactory>()
         {
-            { typeof(QuestSO), new QuestsFactory() }
+            { typeof(QuestSO), new UserQuestsFactory() }
         };
 
-        public Quest CreateQuest(QuestSO data)
+        public UserQuest CreateQuest(QuestSO data)
         {
-            if (_factories.TryGetValue(data.GetType(), out IQuestsFactory factory))
+            if (_factories.TryGetValue(data.GetType(), out IUserQuestsFactory factory))
             {
-                return factory.CreateQuest(data);
+                return factory.CreateUserQuest(data);
             }
 
             Debug.LogError($"Can't create quest {data.GetType().Name}");

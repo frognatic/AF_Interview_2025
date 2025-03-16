@@ -27,12 +27,12 @@ namespace AF_Interview.UI.UIGameplay
 
         #region Public Methods
 
-        public void Prepare(Quest quest)
+        public void Prepare(UserQuest userQuest)
         {
-            _questNameText.text = quest.QuestData.QuestName;
+            _questNameText.text = userQuest.QuestData.QuestName;
 
             _questTaskContainer.DestroyAllChildren();
-            foreach (var questProgress in quest.Progress)
+            foreach (var questProgress in userQuest.Progress)
             {
                 UIQuestTask questTask = Instantiate(_questTaskPrefab, _questTaskContainer);
                 questTask.Prepare(GetQuestTaskDescription(questProgress));
@@ -40,7 +40,7 @@ namespace AF_Interview.UI.UIGameplay
                 _questTasks.Add(questTask);
             }
             
-            _questFinishPanel.SetActive(quest.IsFinished);
+            _questFinishPanel.SetActive(userQuest.IsFinished);
         }
 
         #endregion

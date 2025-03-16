@@ -2,7 +2,7 @@ namespace AF_Interview.Quests
 {
     public abstract class QuestEventBase
     {
-        public Quest Quest;
+        public UserQuest UserQuest;
     }
     
     public class QuestProgressUpdateEvent : QuestEventBase {}

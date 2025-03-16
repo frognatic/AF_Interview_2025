@@ -8,7 +8,7 @@ namespace AF_Interview.UI.UIGameplay
 {
     public class UIInventoryPanelDataModel : DataModel
     {
-        public List<Item> AvailableItemsList;
+        public List<UserItem> AvailableItemsList;
     }
     
     public class UIInventoryPanel : UIBasePanel

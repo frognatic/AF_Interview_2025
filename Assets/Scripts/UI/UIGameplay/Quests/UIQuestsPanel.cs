@@ -7,7 +7,7 @@ namespace AF_Interview.UI.UIGameplay
 {
     public class UIQuestsPanelDataModel : DataModel
     {
-        public List<Quest> Quest;
+        public List<UserQuest> Quest;
     }
     
     public class UIQuestsPanel : UIBasePanel

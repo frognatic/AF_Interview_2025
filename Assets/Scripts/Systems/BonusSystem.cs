@@ -12,7 +12,7 @@ namespace AF_Interview.Systems
     {
         #region Non-Serialized Fields
 
-        private List<Bonus> _bonuses = new List<Bonus>();
+        private List<Bonus> _activeBonuses = new List<Bonus>();
 
         #endregion
         
@@ -26,7 +26,7 @@ namespace AF_Interview.Systems
 
         #region Properties
 
-        public List<Bonus> Bonuses => _bonuses;
+        public List<Bonus> ActiveBonuses => _activeBonuses;
 
         #endregion
         
@@ -75,7 +75,7 @@ namespace AF_Interview.Systems
         {
             var getBonusItems = _itemSystem.GetAllAvailableBonusItems();
 
-            foreach (BonusItem bonusItem in getBonusItems)
+            foreach (BonusUserItem bonusItem in getBonusItems)
             {
                 if (bonusItem.Amount <= 0)
                 {
@@ -83,13 +83,13 @@ namespace AF_Interview.Systems
                 }
 
                 Bonus bonus = _bonusFactoryProvider.CreateBonus(bonusItem.BonusType, bonusItem.BonusValue);
-                _bonuses.Add(bonus);
+                _activeBonuses.Add(bonus);
             }
         }
 
         private int TryGetBonusValue(BonusType bonusType)
         {
-            var bonus = _bonuses.Find(x => x.BonusType == bonusType);
+            var bonus = _activeBonuses.Find(x => x.BonusType == bonusType);
             return bonus?.BonusValue ?? 0;
         }
 

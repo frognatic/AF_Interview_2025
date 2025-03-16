@@ -1,17 +1,16 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using AF_Interview.Items;
 
 namespace AF_Interview.Quests
 {
-    public class Quest
+    public class UserQuest
     {
         public QuestSO QuestData { get; set; }
         public bool IsFinished => Progress.All(x => x.IsFinished);
         public List<QuestProgress> Progress { get; private set; }
 
-        public Quest(QuestSO questData)
+        public UserQuest(QuestSO questData)
         {
             QuestData = questData;
             

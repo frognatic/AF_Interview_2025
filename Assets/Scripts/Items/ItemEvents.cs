@@ -2,7 +2,7 @@ namespace AF_Interview.Items
 {
     public abstract class ItemEventBase
     {
-        public Item Item;
+        public UserItem UserItem;
         public int Amount;
     }
     

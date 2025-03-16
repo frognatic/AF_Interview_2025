@@ -254,7 +254,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3891306021014002233}
   m_HandleRect: {fileID: 2456693253838712562}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -297,8 +297,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.22000122, y: -59.70996}
-  m_SizeDelta: {x: -0.44, y: -120.42}
+  m_AnchoredPosition: {x: -0.22000122, y: -59.467}
+  m_SizeDelta: {x: -0.44, y: -119.934}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2036556162939038178
 CanvasRenderer:
@@ -789,7 +789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1034324261660425172, guid: f16a5b9de236b204f814f49d5cfa845a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -209.86497
+      value: -209.86504
       objectReference: {fileID: 0}
     - target: {fileID: 1394594490480179948, guid: f16a5b9de236b204f814f49d5cfa845a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -913,7 +913,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5054115140252358500, guid: f16a5b9de236b204f814f49d5cfa845a, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6455019566141850098, guid: f16a5b9de236b204f814f49d5cfa845a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -925,6 +925,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6455019566141850098, guid: f16a5b9de236b204f814f49d5cfa845a, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7720849179814996852, guid: f16a5b9de236b204f814f49d5cfa845a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8266457033318808324, guid: f16a5b9de236b204f814f49d5cfa845a, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
