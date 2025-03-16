@@ -17,6 +17,7 @@ namespace AF_Interview.SceneControllers
         [SerializeField] private UIInventoryPanel _inventoryPanel;
         [SerializeField] private UIQuestsPanel _questsPanel;
         [SerializeField] private UIBonusesPanel _bonusesPanel;
+        [SerializeField] private UICraftingMachinesPanel _craftingMachinesPanel;
 
         #endregion
         
@@ -29,7 +30,6 @@ namespace AF_Interview.SceneControllers
         
         [Inject] private readonly ISubscriber<CraftingStartedEvent> _craftingStartedEventSubscriber;
         [Inject] private readonly ISubscriber<CraftingFinishedEvent> _craftingFinishedEventSubscriber;
-        
         [Inject] private readonly ISubscriber<QuestProgressUpdateEvent> _questProgressUpdateEventSubscriber;
 
         #endregion
@@ -42,6 +42,7 @@ namespace AF_Interview.SceneControllers
         private UIInventoryPanelDataModel _inventoryPanelDataModel;
         private UIQuestsPanelDataModel _questsPanelDataModel;
         private UIBonusesPanelDataModel _bonusesPanelDataModel;
+        private UICraftingMachinesPanelDataModel _craftingMachinesPanelDataModel;
 
         #endregion
         
@@ -52,44 +53,9 @@ namespace AF_Interview.SceneControllers
             PrepareInventoryPanel();
             PrepareQuestsPanel();
             PrepareBonusesPanel();
+            PrepareCraftingMachinesPanel();
 
             SubscribeToEvents();
-
-            // var bag = DisposableBag.CreateBuilder();
-            //
-            // _craftingStartedEventSubscriber.Subscribe(e => Debug.LogWarning($"CraftingStarted event received: {e.Recipe.RecipeData.RecipeName}")).AddTo(bag);
-            // _craftingFinishedEventSubscriber.Subscribe(e => Debug.LogWarning($"CraftingFinished event received: {e.Recipe.RecipeData.RecipeName}")).AddTo(bag);
-            //
-            // _eventsBagDisposable = bag.Build();
-            //
-            // var items = _itemSystem.GetAllAvailableItems();
-            // var quests = _questsSystem.Quests;
-            // var machines = _craftingSystem.CraftingMachines;
-            //
-            // foreach (var item in items)
-            // {
-            //     if (item is BonusItem)
-            //     {
-            //         Debug.LogWarning($"{item.ItemData.ItemName} is a bonus item and amount is: {item.Amount}");
-            //     }
-            //     else
-            //     {
-            //         Debug.LogWarning($"{item.ItemData.ItemName} is an item and amount is: {item.Amount}");
-            //     }
-            // }
-            //
-            // foreach (var quest in quests)
-            // {
-            //     foreach (var progress in quest.Progress)
-            //     {
-            //         Debug.LogWarning($"Progress for quest: {quest.QuestData.QuestName} [{progress.CurrentValue}/{progress.EndValue}]");
-            //     }
-            // }
-            //
-            // foreach (var machine in _craftingSystem.CraftingMachines)
-            // {
-            //     Debug.LogWarning($"Machine: {machine.CraftingMachineData.MachineName} is unlocked: {machine.IsUnlocked}");
-            // }
         }
 
         #region Private Methods
@@ -97,10 +63,9 @@ namespace AF_Interview.SceneControllers
         private void SubscribeToEvents()
         {
             var bag = DisposableBag.CreateBuilder();
-            
+
             _craftingStartedEventSubscriber.Subscribe(e => OnCraftingStarted(e.Recipe)).AddTo(bag);
             _craftingFinishedEventSubscriber.Subscribe(e => OnCraftingFinished(e.CraftingResult, e.Recipe)).AddTo(bag);
-            
             _questProgressUpdateEventSubscriber.Subscribe(e => OnQuestProgress(e.Quest)).AddTo(bag);
             
             _eventsBagDisposable = bag.Build();
@@ -130,6 +95,14 @@ namespace AF_Interview.SceneControllers
             _bonusesPanelDataModel.Bonuses = _bonusSystem.Bonuses;
             
             _bonusesPanel.Prepare(_bonusesPanelDataModel);
+        }
+
+        private void PrepareCraftingMachinesPanel()
+        {
+            _craftingMachinesPanelDataModel ??= new UICraftingMachinesPanelDataModel();
+            _craftingMachinesPanelDataModel.CraftingMachines = _craftingSystem.CraftingMachines;
+            
+            _craftingMachinesPanel.Prepare(_craftingMachinesPanelDataModel);
         }
         
         // Events Responses

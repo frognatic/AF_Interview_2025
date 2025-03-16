@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a5d8a7cd660ba459ab0f88fdb7799d, type: 3}
   m_Name: EmberBladeRecipe
   m_EditorClassIdentifier: 
-  _recipeName: Enhanced Ember Blade
+  _recipeName: Ember Blade
   _ingredients:
     _serializedList:
     - Key: {fileID: 11400000, guid: 368f9cb3108cf944e883049b56b85c1c, type: 2}

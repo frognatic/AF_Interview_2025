@@ -18,3 +18,4 @@ MonoBehaviour:
   _availableRecipes:
   - {fileID: 11400000, guid: c0b1299f0a8fa3542941f8e059662153, type: 2}
   - {fileID: 11400000, guid: c9ca9781e0d6e0c40b59a7ecfb8b3d59, type: 2}
+  _machineIcon: {fileID: 21300000, guid: 294f2767eaf35474f9c618151160f20e, type: 3}

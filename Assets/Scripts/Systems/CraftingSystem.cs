@@ -6,7 +6,6 @@ using AF_Interview.Crafting;
 using AF_Interview.Utilities;
 using Cysharp.Threading.Tasks;
 using MessagePipe;
-using NaughtyAttributes;
 using UnityEngine;
 using Zenject;
 
@@ -48,7 +47,6 @@ namespace AF_Interview.Systems
         #region Properties
 
         public List<CraftingMachine> CraftingMachines => _craftingMachines;
-        public List<Recipe> Recipes => _recipes;
 
         #endregion
         
@@ -85,14 +83,6 @@ namespace AF_Interview.Systems
 
         #endregion
 
-        [Button]
-        public void StartIronInglotCrafting()
-        {
-            var ironInglotRecipe = _recipes.Find(x => x.RecipeData.RecipeName == "Iron Ingot");
-            
-            TryStartCrafting(ironInglotRecipe);
-        }
-
         #region Public Methods
         
         public void TryStartCrafting(Recipe recipe)
@@ -104,10 +94,20 @@ namespace AF_Interview.Systems
                 StartCrafting(craftingMachine, recipe);
             }
         }
-        
-        public bool HasCorrectIngredients(Recipe recipe)
+
+        public void TryStartCrafting(RecipeSO recipeData)
         {
-            foreach (var ingredient in recipe.RecipeData.Ingredients)
+            var recipe = _recipes.Find(x => x.RecipeData.RecipeName == recipeData.RecipeName);
+
+            if (recipe != null)
+            {
+                TryStartCrafting(recipe);
+            }
+        }
+        
+        public bool HasCorrectIngredients(RecipeSO recipeData)
+        {
+            foreach (var ingredient in recipeData.Ingredients)
             {
                 if (!_itemSystem.HasRequiredItemAmount(ingredient.Key, ingredient.Value))
                 {
@@ -116,11 +116,6 @@ namespace AF_Interview.Systems
             }
 
             return true;
-        }
-
-        public List<CraftingMachine> GetAvailableCraftingMachines()
-        {
-            return _craftingMachines.Where(x => x.IsUnlocked).ToList();
         }
         
         #endregion
@@ -145,7 +140,7 @@ namespace AF_Interview.Systems
         
         private bool CanStartCraftingProcess(CraftingMachine craftingMachine, Recipe recipe)
         {
-            var hasCorrectIngredients = HasCorrectIngredients(recipe);
+            var hasCorrectIngredients = HasCorrectIngredients(recipe.RecipeData);
             var isCraftingMachineNotStarted = !_craftingProcessesDictionary.ContainsKey(craftingMachine);
             
             return hasCorrectIngredients && isCraftingMachineNotStarted;
@@ -154,7 +149,8 @@ namespace AF_Interview.Systems
         private void StartCrafting(CraftingMachine craftingMachine, Recipe recipe)
         {
             RemoveCraftingIngredients(recipe);
-
+            _craftingStartedEventPublisher.Publish(new () { CraftingMachine = craftingMachine, Recipe = recipe});
+            
             var craftingTime = recipe.RecipeData.CraftingTimeInSeconds - _bonusSystem.GetCraftingTimeReduceBonus();
             if (craftingTime > 0)
             {
@@ -172,8 +168,6 @@ namespace AF_Interview.Systems
             _craftingProcessesDictionary.Add(craftingMachine, craftingCoroutine);
                     
             StartCoroutine(craftingCoroutine);
-            
-            _craftingStartedEventPublisher.Publish(new () { Recipe = recipe});
         }
 
         private void RemoveCraftingIngredients(Recipe recipe)
@@ -190,7 +184,8 @@ namespace AF_Interview.Systems
             while (elapsedTime < duration)
             {
                 elapsedTime += Time.deltaTime;
-                _craftingProgressUpdatedEventPublisher.Publish(new CraftingProgressUpdatedEvent { Recipe = recipe, CraftingMachine = craftingMachine, ElapsedTime = elapsedTime });
+                
+                _craftingProgressUpdatedEventPublisher.Publish(new CraftingProgressUpdatedEvent { Recipe = recipe, CraftingMachine = craftingMachine, CraftingProgressTime = elapsedTime / duration });
                 
                 yield return null;
             }
@@ -208,7 +203,7 @@ namespace AF_Interview.Systems
             }
             
             CraftingResult craftingResult = isCraftingSuccess ? CraftingResult.Success : CraftingResult.Failure;
-            _craftingFinishedEventPublisher.Publish(new CraftingFinishedEvent { Recipe = recipe, CraftingResult = craftingResult });
+            _craftingFinishedEventPublisher.Publish(new CraftingFinishedEvent { CraftingMachine = craftingMachine, Recipe = recipe, CraftingResult = craftingResult });
             
             // remove coroutines
             _craftingProcessesDictionary.Remove(craftingMachine);

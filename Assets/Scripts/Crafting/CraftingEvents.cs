@@ -13,17 +13,18 @@ namespace AF_Interview.Crafting
 
     public class CraftingStartedEvent : CraftingEventBase
     {
-        
+        public CraftingMachine CraftingMachine;
     }
 
     public class CraftingProgressUpdatedEvent : CraftingEventBase
     {
         public CraftingMachine CraftingMachine;
-        public float ElapsedTime;
+        public float CraftingProgressTime;
     }
     
     public class CraftingFinishedEvent : CraftingEventBase
     {
+        public CraftingMachine CraftingMachine;
         public CraftingResult CraftingResult;
     }
     public class UnlockedCraftingMachineEvent

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: CraftingMachinesLibrary
   m_EditorClassIdentifier: 
   _craftingMachines:
+  - {fileID: 11400000, guid: da570c01a76fa984c8c4e06e9b12c669, type: 2}
   - {fileID: 11400000, guid: 65ae80b504873394390db987b095a513, type: 2}
-  - {fileID: 11400000, guid: f74ed02dac4b377458f5a985cd4e9166, type: 2}
   - {fileID: 11400000, guid: 98942f68b31249c49816242124388699, type: 2}
   - {fileID: 11400000, guid: 23f4405245c4cc04a8862bc2e680fcae, type: 2}
-  - {fileID: 11400000, guid: da570c01a76fa984c8c4e06e9b12c669, type: 2}
+  - {fileID: 11400000, guid: f74ed02dac4b377458f5a985cd4e9166, type: 2}
   _initialCraftingMachines:
   - {fileID: 11400000, guid: da570c01a76fa984c8c4e06e9b12c669, type: 2}
   - {fileID: 11400000, guid: 65ae80b504873394390db987b095a513, type: 2}

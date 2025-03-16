@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a5d8a7cd660ba459ab0f88fdb7799d, type: 3}
   m_Name: EnhancedRadiantStaffRecipe
   m_EditorClassIdentifier: 
+  _recipeName: Enhanced Radiant Staff
   _ingredients:
     _serializedList:
     - Key: {fileID: 11400000, guid: a3dd27aef4c089b4793575205024cb2c, type: 2}

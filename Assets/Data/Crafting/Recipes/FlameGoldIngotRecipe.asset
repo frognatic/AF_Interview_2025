@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a5d8a7cd660ba459ab0f88fdb7799d, type: 3}
   m_Name: FlameGoldIngotRecipe
   m_EditorClassIdentifier: 
+  _recipeName: Flame-Gold Ingot
   _ingredients:
     _serializedList:
-    - Key: {fileID: 11400000, guid: a8c29438bc9004043aed69c5dc39e66f, type: 2}
+    - Key: {fileID: 11400000, guid: 474a84b8a5d645a4397d94b186e9d8ad, type: 2}
       Value: 1
     - Key: {fileID: 11400000, guid: 016a331c978e0c641b783009dafd2be9, type: 2}
       Value: 1

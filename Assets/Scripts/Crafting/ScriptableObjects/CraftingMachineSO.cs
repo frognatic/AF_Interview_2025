@@ -12,6 +12,7 @@ namespace AF_Interview.Crafting
         [SerializeField] protected string _machineName;
         [SerializeField] protected string _machineDescription;
         [SerializeField] protected List<RecipeSO> _availableRecipes;
+        [SerializeField] protected Sprite _machineIcon;
 
         #endregion
         
@@ -21,6 +22,7 @@ namespace AF_Interview.Crafting
         public string MachineName { get => _machineName; set => _machineName = value; }
         public string MachineDescription { get => _machineDescription; set => _machineDescription = value; }
         public List<RecipeSO> AvailableRecipes { get => _availableRecipes; set => _availableRecipes = value; }
+        public Sprite MachineIcon { get => _machineIcon; set => _machineIcon = value; }
         
         #endregion
     }
