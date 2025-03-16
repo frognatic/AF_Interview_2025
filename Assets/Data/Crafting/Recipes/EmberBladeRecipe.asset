@@ -23,5 +23,5 @@ MonoBehaviour:
     _serializedList:
     - Key: {fileID: 11400000, guid: bad879e5540b9c849859ebd970356d5d, type: 2}
       Value: 1
-  _craftingTimeInSecondsInSeconds: 5
+  _craftingTimeInSeconds: 5
   _craftingSuccessRateInPercent: 80

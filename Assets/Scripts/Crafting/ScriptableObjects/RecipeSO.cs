@@ -12,7 +12,7 @@ namespace AF_Interview.Crafting
         [SerializeField] protected string _recipeName;
         [SerializeField] protected SerializedDictionary<ItemSO, int> _ingredients;
         [SerializeField] protected SerializedDictionary<ItemSO, int> _craftingResults;
-        [SerializeField] protected int _craftingTimeInSecondsInSeconds;
+        [SerializeField] protected int _craftingTimeInSeconds;
         [Tooltip("Success rate in percent (range - 0 - 100)")]
         [Range(0, 100)]
         [SerializeField] protected int _craftingSuccessRateInPercent = 100;
@@ -24,7 +24,7 @@ namespace AF_Interview.Crafting
         public string RecipeName => _recipeName;
         public SerializedDictionary<ItemSO, int> Ingredients => _ingredients;
         public SerializedDictionary<ItemSO, int> CraftingResults => _craftingResults;
-        public int CraftingTimeInSeconds => _craftingTimeInSecondsInSeconds;
+        public int CraftingTimeInSeconds => _craftingTimeInSeconds;
         public int CraftingSuccessRateInPercent => _craftingSuccessRateInPercent;
 
         #endregion
