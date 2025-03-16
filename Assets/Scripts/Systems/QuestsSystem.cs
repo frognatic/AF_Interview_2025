@@ -22,6 +22,8 @@ namespace AF_Interview.Systems
         [Inject] private readonly IPublisher<QuestProgressUpdateEvent> _questProgressUpdateEventPublisher;
         [Inject] private readonly IPublisher<QuestCompletedEvent> _questCompletedEventPublisher;
         
+        [Inject] private readonly ISubscriber<CraftingFinishedEvent> _craftingFinishedEventSubscriber;
+        
         [Inject] private readonly QuestsFactoryProvider _questsFactory;
         [Inject] private readonly ItemSystem _itemSystem;
         [Inject] private readonly CraftingSystem _craftingSystem;
@@ -31,6 +33,7 @@ namespace AF_Interview.Systems
         #region Non-serialized Fields
         
         private List<UserQuest> _quests = new List<UserQuest>();
+        private IDisposable _eventsBagDisposable;
         
         #endregion
 
@@ -63,15 +66,37 @@ namespace AF_Interview.Systems
         {
             PrepareStartQuests();
             
+            var bag = DisposableBag.CreateBuilder();
+            _craftingFinishedEventSubscriber.Subscribe(e => TryUpdateQuestsProgressByFinishRecipe(e.Recipe)).AddTo(bag);
+            
+            _eventsBagDisposable = bag.Build();
+            
             IsReady = true;
+            await UniTask.CompletedTask;
+        }
+
+        public override async UniTask DeInit()
+        {
+            _eventsBagDisposable?.Dispose();
+            
+            IsReady = false;
             await UniTask.CompletedTask;
         }
 
         #endregion
 
-        #region Public Methods
+        #region Private Methods
 
-        public void TryUpdateQuestsProgressByFinishRecipe(Recipe recipe)
+        private void PrepareStartQuests()
+        {
+            foreach (var startedQuest in _questsLibrary.InitialQuests)
+            {
+                var quest = _questsFactory.CreateQuest(startedQuest);
+                _quests.Add(quest);
+            }
+        }
+        
+        private void TryUpdateQuestsProgressByFinishRecipe(Recipe recipe)
         {
             List<UserQuest> updatedQuests = new();
             List<UserQuest> completedQuests = new();
@@ -99,20 +124,6 @@ namespace AF_Interview.Systems
             foreach (var quest in completedQuests)
             {
                 _questCompletedEventPublisher.Publish(new QuestCompletedEvent() { UserQuest = quest });
-                _craftingSystem.TryUnlockCraftingMachines(quest.QuestData.CraftingMachinesToUnlock);
-            }
-        }
-        
-        #endregion
-
-        #region Private Methods
-
-        private void PrepareStartQuests()
-        {
-            foreach (var startedQuest in _questsLibrary.InitialQuests)
-            {
-                var quest = _questsFactory.CreateQuest(startedQuest);
-                _quests.Add(quest);
             }
         }
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AF_Interview.Crafting;
+using AF_Interview.Quests;
 using AF_Interview.Utilities;
 using Cysharp.Threading.Tasks;
 using MessagePipe;
@@ -26,6 +27,8 @@ namespace AF_Interview.Systems
         [Inject] private readonly IPublisher<CraftingProgressUpdatedEvent> _craftingProgressUpdatedEventPublisher;
         [Inject] private readonly IPublisher<CraftingFinishedEvent> _craftingFinishedEventPublisher;
         [Inject] private readonly IPublisher<UnlockedCraftingMachineEvent> _unlockedCraftingMachineEventPublisher;
+        
+        [Inject] private readonly ISubscriber<QuestCompletedEvent> _questCompletedEventSubscriber;
 
         [Inject] private readonly RecipesFactoryProvider _recipesFactoryProvider;
         [Inject] private readonly CraftingMachinesFactoryProvider _craftingMachinesFactoryProvider;
@@ -47,6 +50,7 @@ namespace AF_Interview.Systems
         #region Properties
 
         public List<CraftingMachine> CraftingMachines => _craftingMachines;
+        private IDisposable _eventsBagDisposable;
 
         #endregion
         
@@ -77,7 +81,20 @@ namespace AF_Interview.Systems
         {
             PrepareStartCraftingElements();
             
+            var bag = DisposableBag.CreateBuilder();
+            _questCompletedEventSubscriber.Subscribe(e => TryUnlockCraftingMachines(e.UserQuest.QuestData.CraftingMachinesToUnlock)).AddTo(bag);
+            
+            _eventsBagDisposable = bag.Build();
+            
             IsReady = true;
+            await UniTask.CompletedTask;
+        }
+        
+        public override async UniTask DeInit()
+        {
+            _eventsBagDisposable?.Dispose();
+            
+            IsReady = false;
             await UniTask.CompletedTask;
         }
 
@@ -197,11 +214,6 @@ namespace AF_Interview.Systems
         {
             bool isCraftingSuccess = TryAddCraftingResults(recipe);
             
-            if (isCraftingSuccess)
-            {
-                _questsSystem.TryUpdateQuestsProgressByFinishRecipe(recipe);    
-            }
-            
             CraftingResult craftingResult = isCraftingSuccess ? CraftingResult.Success : CraftingResult.Failure;
             _craftingFinishedEventPublisher.Publish(new CraftingFinishedEvent { CraftingMachine = craftingMachine, Recipe = recipe, CraftingResult = craftingResult });
             
@@ -227,7 +239,7 @@ namespace AF_Interview.Systems
             return true;
         }
 
-        public void TryUnlockCraftingMachines(List<CraftingMachineSO> craftingMachinesData)
+        private void TryUnlockCraftingMachines(List<CraftingMachineSO> craftingMachinesData)
         {
             var notAvailableCraftingMachines = GetNotAvailableCraftingMachines();
 
