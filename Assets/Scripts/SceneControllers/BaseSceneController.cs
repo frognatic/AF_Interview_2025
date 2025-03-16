@@ -6,7 +6,7 @@ namespace AF_Interview.SceneControllers
     {
         protected virtual void Start()
         {
-            Debug.LogWarning($"Start {gameObject.name}");
+            
         }
     }
 }

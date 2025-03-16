@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AF_Interview.Crafting;
 using AF_Interview.Quests;
 using Cysharp.Threading.Tasks;
 using MessagePipe;
@@ -18,7 +19,12 @@ namespace AF_Interview.Systems
         
         #region Injected Fields
 
-        [Inject] private QuestsFactoryProvider _questsFactory;
+        [Inject] private readonly IPublisher<QuestProgressUpdateEvent> _questProgressUpdateEventPublisher;
+        [Inject] private readonly IPublisher<QuestCompletedEvent> _questCompletedEventPublisher;
+        
+        [Inject] private readonly QuestsFactoryProvider _questsFactory;
+        [Inject] private readonly ItemSystem _itemSystem;
+        [Inject] private readonly CraftingSystem _craftingSystem;
 
         #endregion
         
@@ -46,6 +52,9 @@ namespace AF_Interview.Systems
         }
         public override void InstallBindings(DiContainer container, MessagePipeOptions messagePipeOptions)
         {
+            container.BindMessageBroker<QuestProgressUpdateEvent>(messagePipeOptions);
+            container.BindMessageBroker<QuestCompletedEvent>(messagePipeOptions);
+            
             container.Bind<QuestsFactoryProvider>()
                 .AsSingle();
         }
@@ -62,6 +71,38 @@ namespace AF_Interview.Systems
 
         #region Public Methods
 
+        public void TryUpdateQuestsProgressByFinishRecipe(Recipe recipe)
+        {
+            List<Quest> updatedQuests = new();
+            List<Quest> completedQuests = new();
+
+            foreach (var craftingResult in recipe.RecipeData.CraftingResults)
+            {
+                foreach (var quest in _quests)
+                {
+                    if (quest.TryUpdateProgress(craftingResult.Key, craftingResult.Value))
+                    {
+                        updatedQuests.Add(quest);
+                        if (quest.IsFinished)
+                        {
+                            completedQuests.Add(quest);
+                        }
+                    }
+                }
+            }
+            
+            foreach (var quest in updatedQuests)
+            {
+                _questProgressUpdateEventPublisher.Publish(new QuestProgressUpdateEvent() { Quest = quest });
+            }
+
+            foreach (var quest in completedQuests)
+            {
+                _questCompletedEventPublisher.Publish(new QuestCompletedEvent() { Quest = quest });
+                _craftingSystem.TryUnlockCraftingMachines(quest.QuestData.CraftingMachinesToUnlock);
+            }
+        }
+        
         #endregion
 
         #region Private Methods

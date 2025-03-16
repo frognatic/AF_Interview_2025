@@ -1,8 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using AF_Interview.Crafting;
+using AF_Interview.Utilities;
 using Cysharp.Threading.Tasks;
 using MessagePipe;
+using NaughtyAttributes;
 using UnityEngine;
 using Zenject;
 
@@ -18,9 +22,17 @@ namespace AF_Interview.Systems
         #endregion
         
         #region Injected Fields
+        
+        [Inject] private readonly IPublisher<CraftingStartedEvent> _craftingStartedEventPublisher;
+        [Inject] private readonly IPublisher<CraftingProgressUpdatedEvent> _craftingProgressUpdatedEventPublisher;
+        [Inject] private readonly IPublisher<CraftingFinishedEvent> _craftingFinishedEventPublisher;
+        [Inject] private readonly IPublisher<UnlockedCraftingMachineEvent> _unlockedCraftingMachineEventPublisher;
 
-        [Inject] private RecipesFactoryProvider _recipesFactoryProvider;
-        [Inject] private CraftingMachinesFactoryProvider _craftingMachinesFactoryProvider;
+        [Inject] private readonly RecipesFactoryProvider _recipesFactoryProvider;
+        [Inject] private readonly CraftingMachinesFactoryProvider _craftingMachinesFactoryProvider;
+        [Inject] private readonly ItemSystem _itemSystem;
+        [Inject] private readonly QuestsSystem _questsSystem;
+        [Inject] private readonly BonusSystem _bonusSystem;
 
         #endregion
         
@@ -28,6 +40,8 @@ namespace AF_Interview.Systems
 
         private readonly List<CraftingMachine> _craftingMachines = new List<CraftingMachine>();
         private readonly List<Recipe> _recipes = new List<Recipe>();
+        
+        private Dictionary<CraftingMachine, IEnumerator> _craftingProcessesDictionary = new Dictionary<CraftingMachine, IEnumerator>();
 
         #endregion
         
@@ -50,6 +64,11 @@ namespace AF_Interview.Systems
         }
         public override void InstallBindings(DiContainer container, MessagePipeOptions messagePipeOptions)
         {
+            container.BindMessageBroker<CraftingStartedEvent>(messagePipeOptions);
+            container.BindMessageBroker<CraftingProgressUpdatedEvent>(messagePipeOptions);
+            container.BindMessageBroker<CraftingFinishedEvent>(messagePipeOptions);
+            container.BindMessageBroker<UnlockedCraftingMachineEvent>(messagePipeOptions);
+            
             container.Bind<CraftingMachinesFactoryProvider>()
                 .AsSingle();
             container.Bind<RecipesFactoryProvider>()
@@ -67,8 +86,48 @@ namespace AF_Interview.Systems
         #endregion
 
         #region Public Methods
+        
+        public void StartCrafting(Recipe recipe)
+        {
+            var craftingMachine = _craftingMachines.Find(x => x.CraftingMachineData.AvailableRecipes.Contains(recipe.RecipeData));
+            
+            if (CanStartCraftingProcess(craftingMachine, recipe))
+            {
+                RemoveCraftingIngredients(recipe);
 
+                var craftingTime = recipe.RecipeData.CraftingTimeInSeconds - _bonusSystem.GetCraftingTimeReduceBonus();
+                if (craftingTime > 0)
+                {
+                    IEnumerator craftingCoroutine = CraftProcess(craftingMachine, recipe, craftingTime, () => FinishCrafting(craftingMachine, recipe));
+                    _craftingProcessesDictionary.Add(craftingMachine, craftingCoroutine);
+                    
+                    StartCoroutine(craftingCoroutine);
+                }
+                else
+                {
+                    FinishCrafting(craftingMachine, recipe);
+                }
+            }
+        }
+        
+        public bool HasCorrectIngredients(Recipe recipe)
+        {
+            foreach (var ingredient in recipe.RecipeData.Ingredients)
+            {
+                if (!_itemSystem.HasRequiredItemAmount(ingredient.Key, ingredient.Value))
+                {
+                    return false;
+                }
+            }
 
+            return true;
+        }
+
+        public List<CraftingMachine> GetAvailableCraftingMachines()
+        {
+            return _craftingMachines.Where(x => x.IsUnlocked).ToList();
+        }
+        
         #endregion
 
         #region Private Methods
@@ -88,7 +147,98 @@ namespace AF_Interview.Systems
                 _recipes.Add(recipe);
             }
         }
+        
+        private bool CanStartCraftingProcess(CraftingMachine craftingMachine, Recipe recipe)
+        {
+            var hasCorrectIngredients = HasCorrectIngredients(recipe);
+            var isCraftingMachineNotStarted = !_craftingProcessesDictionary.ContainsKey(craftingMachine);
+            
+            return hasCorrectIngredients && isCraftingMachineNotStarted;
+        }
 
+        private void RemoveCraftingIngredients(Recipe recipe)
+        {
+            foreach (var ingredientToRemove in recipe.RecipeData.Ingredients)
+            {
+                _itemSystem.RemoveItem(ingredientToRemove.Key, ingredientToRemove.Value);
+            }
+        }
+        
+        private IEnumerator CraftProcess(CraftingMachine craftingMachine, Recipe recipe, float duration, Action finishCallback)
+        {
+            float elapsedTime = 0;
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+                _craftingProgressUpdatedEventPublisher.Publish(new CraftingProgressUpdatedEvent { Recipe = recipe, CraftingMachine = craftingMachine, ElapsedTime = elapsedTime });
+                
+                yield return null;
+            }
+
+            finishCallback?.Invoke();
+        }
+        
+        private void FinishCrafting(CraftingMachine craftingMachine, Recipe recipe)
+        {
+            bool isCraftingSuccess = TryAddCraftingResults(recipe);
+            
+            if (isCraftingSuccess)
+            {
+                _questsSystem.TryUpdateQuestsProgressByFinishRecipe(recipe);    
+            }
+            
+            CraftingResult craftingResult = isCraftingSuccess ? CraftingResult.Success : CraftingResult.Failure;
+            _craftingFinishedEventPublisher.Publish(new CraftingFinishedEvent { Recipe = recipe, CraftingResult = craftingResult });
+            
+            // remove coroutines
+            _craftingProcessesDictionary.Remove(craftingMachine);
+        }
+
+        private bool TryAddCraftingResults(Recipe recipe)
+        {
+            var craftingSuccessRate = recipe.RecipeData.CraftingSuccessRateInPercent + _bonusSystem.GetCraftingSuccessRateBonus();
+            var isCraftingSuccessful = RandUtilities.CanProceed(craftingSuccessRate);
+
+            if (!isCraftingSuccessful)
+            {
+                return false;
+            }
+            
+            foreach (var result in recipe.RecipeData.CraftingResults)
+            {
+                _itemSystem.AddItem(result.Key, result.Value);
+            }
+            
+            return true;
+        }
+
+        public void TryUnlockCraftingMachines(List<CraftingMachineSO> craftingMachinesData)
+        {
+            var notAvailableCraftingMachines = GetNotAvailableCraftingMachines();
+
+            var craftingMachineSOSet = new HashSet<CraftingMachineSO>(craftingMachinesData);
+            List<CraftingMachine> unlockedMachines = new();
+
+            foreach (var craftingMachine in notAvailableCraftingMachines)
+            {
+                if (craftingMachineSOSet.Contains(craftingMachine.CraftingMachineData))
+                {
+                    craftingMachine.IsUnlocked = true;
+                    unlockedMachines.Add(craftingMachine);
+                }
+            }
+
+            foreach (var machine in unlockedMachines)
+            {
+                _unlockedCraftingMachineEventPublisher.Publish(new UnlockedCraftingMachineEvent { CraftingMachine = machine });
+            }
+        }
+
+        private List<CraftingMachine> GetNotAvailableCraftingMachines()
+        {
+            return _craftingMachines.Where(x => !x.IsUnlocked).ToList();
+        }
+        
         #endregion
     }
 }

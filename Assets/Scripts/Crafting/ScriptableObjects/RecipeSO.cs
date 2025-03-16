@@ -9,6 +9,7 @@ namespace AF_Interview.Crafting
     {
         #region Serialized Fields
 
+        [SerializeField] protected string _recipeName;
         [SerializeField] protected SerializedDictionary<ItemSO, int> _ingredients;
         [SerializeField] protected SerializedDictionary<ItemSO, int> _craftingResults;
         [SerializeField] protected int _craftingTimeInSecondsInSeconds;
@@ -20,6 +21,7 @@ namespace AF_Interview.Crafting
         
         #region Properties
         
+        public string RecipeName {get => _recipeName; set => _recipeName = value; }
         public SerializedDictionary<ItemSO, int> Ingredients { get => _ingredients; set => _ingredients = value; }
         public SerializedDictionary<ItemSO, int> CraftingResults { get => _craftingResults; set => _craftingResults = value; }
         public int CraftingTimeInSeconds { get => _craftingTimeInSecondsInSeconds; set => _craftingTimeInSecondsInSeconds = value; }

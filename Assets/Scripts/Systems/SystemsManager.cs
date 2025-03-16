@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using MessagePipe;
@@ -79,6 +80,16 @@ namespace AF_Interview.Systems
             }
         }
 
+        public async UniTask DeInit()
+        {
+            foreach (var gameSystem in _systemsInitializeOrder)
+            {
+                await gameSystem.DeInit();
+            }
+            
+            IsReady = false;
+        }
+
         #endregion
 
         #region Private Methods
@@ -86,6 +97,11 @@ namespace AF_Interview.Systems
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
+        }
+
+        private async void OnDestroy()
+        {
+            await DeInit();
         }
 
         #endregion
