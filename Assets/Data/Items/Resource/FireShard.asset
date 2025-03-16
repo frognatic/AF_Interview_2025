@@ -16,3 +16,4 @@ MonoBehaviour:
   _itemName: Fire Shard
   _itemDescription: Elemental crystal that provides heat and a slight enchantment
   _itemType: 0
+  _itemIcon: {fileID: 21300000, guid: 193f7833f8742834796b9ae89b398d14, type: 3}

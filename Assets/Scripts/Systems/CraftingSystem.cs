@@ -85,28 +85,23 @@ namespace AF_Interview.Systems
 
         #endregion
 
+        [Button]
+        public void StartIronInglotCrafting()
+        {
+            var ironInglotRecipe = _recipes.Find(x => x.RecipeData.RecipeName == "Iron Ingot");
+            
+            TryStartCrafting(ironInglotRecipe);
+        }
+
         #region Public Methods
         
-        public void StartCrafting(Recipe recipe)
+        public void TryStartCrafting(Recipe recipe)
         {
             var craftingMachine = _craftingMachines.Find(x => x.CraftingMachineData.AvailableRecipes.Contains(recipe.RecipeData));
             
             if (CanStartCraftingProcess(craftingMachine, recipe))
             {
-                RemoveCraftingIngredients(recipe);
-
-                var craftingTime = recipe.RecipeData.CraftingTimeInSeconds - _bonusSystem.GetCraftingTimeReduceBonus();
-                if (craftingTime > 0)
-                {
-                    IEnumerator craftingCoroutine = CraftProcess(craftingMachine, recipe, craftingTime, () => FinishCrafting(craftingMachine, recipe));
-                    _craftingProcessesDictionary.Add(craftingMachine, craftingCoroutine);
-                    
-                    StartCoroutine(craftingCoroutine);
-                }
-                else
-                {
-                    FinishCrafting(craftingMachine, recipe);
-                }
+                StartCrafting(craftingMachine, recipe);
             }
         }
         
@@ -154,6 +149,25 @@ namespace AF_Interview.Systems
             var isCraftingMachineNotStarted = !_craftingProcessesDictionary.ContainsKey(craftingMachine);
             
             return hasCorrectIngredients && isCraftingMachineNotStarted;
+        }
+        
+        private void StartCrafting(CraftingMachine craftingMachine, Recipe recipe)
+        {
+            RemoveCraftingIngredients(recipe);
+            _craftingStartedEventPublisher.Publish(new () { Recipe = recipe});
+
+            var craftingTime = recipe.RecipeData.CraftingTimeInSeconds - _bonusSystem.GetCraftingTimeReduceBonus();
+            if (craftingTime > 0)
+            {
+                IEnumerator craftingCoroutine = CraftProcess(craftingMachine, recipe, craftingTime, () => FinishCrafting(craftingMachine, recipe));
+                _craftingProcessesDictionary.Add(craftingMachine, craftingCoroutine);
+                    
+                StartCoroutine(craftingCoroutine);
+            }
+            else
+            {
+                FinishCrafting(craftingMachine, recipe);
+            }
         }
 
         private void RemoveCraftingIngredients(Recipe recipe)

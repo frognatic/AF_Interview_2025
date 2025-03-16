@@ -16,3 +16,4 @@ MonoBehaviour:
   _itemName: Dragon Scale
   _itemDescription: Very rare scale granting high defensive properties
   _itemType: 0
+  _itemIcon: {fileID: 21300000, guid: 0fba8b465a55c2e4b9af0e6d6bb2223e, type: 3}

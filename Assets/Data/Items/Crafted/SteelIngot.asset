@@ -16,3 +16,4 @@ MonoBehaviour:
   _itemName: Steel Ingot
   _itemDescription: Stronger metal bar forged from Iron Ingot and Fire Shard
   _itemType: 1
+  _itemIcon: {fileID: 21300000, guid: c8b4439410de1e34baaf516ec8b6d796, type: 3}

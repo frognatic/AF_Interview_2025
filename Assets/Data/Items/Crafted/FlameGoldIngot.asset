@@ -16,3 +16,4 @@ MonoBehaviour:
   _itemName: Flame-Gold Ingot
   _itemDescription: Advanced alloy forged from Gold Ingot + Fire Shard
   _itemType: 1
+  _itemIcon: {fileID: 21300000, guid: e3d5b6f799e490749b2bbe5d4c05cdf5, type: 3}

@@ -8,11 +8,11 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace AF_Interview.UI
+namespace AF_Interview.UI.UIGameplay
 {
     public class UIGameplayHUDDataModel
     {
-        
+        public UIInventoryGridDataModel InventoryGridDataModel;
     }
     
     public class UIGameplayHUD : MonoBehaviour
@@ -26,6 +26,8 @@ namespace AF_Interview.UI
         [SerializeField] private Transform _inventoryContent;
         [SerializeField] private Transform _forgeContent;
         [SerializeField] private Transform _questsContent;
+        
+        [SerializeField] private UIInventoryGrid _inventoryGrid;
 
         #endregion
 
@@ -49,17 +51,33 @@ namespace AF_Interview.UI
         private IDisposable _eventsBagDisposable;
 
         #endregion
+
+        #region Public Methods
+
+        public void Prepare(UIGameplayHUDDataModel dataModel)
+        {
+            //_inventoryGrid.Prepare(dataModel.InventoryGridDataModel);
+            
+            SubscribeToEvents();
+        }
+
+        public void RefreshInventoryGrid()
+        {
+            _inventoryGrid.RefreshSlots();
+        }
+
+        #endregion
         
         #region Private Methods
 
         private void Start()
         {
-            SubscribeToEvents();
+            //SubscribeToEvents();
             
-            CreateInventoryContent();
-            CreateForgeContent();
-            CreateQuestsContent();
-
+            //CreateInventoryContent();
+            // CreateForgeContent();
+            // CreateQuestsContent();
+            
             // _craftingSuccesRateBonusText.text = $"Success Rate + {_bonusSystem.CraftingSuccessRateBonus}%";
             // _craftingTimeBonusText.text = $"Time Bonus: {_bonusSystem.CraftingTimeReduceBonus}s";
         }
@@ -68,15 +86,20 @@ namespace AF_Interview.UI
         {
             var bag = DisposableBag.CreateBuilder();
             
-            _questProgressUpdateEventSubscriber.Subscribe(e => CreateQuestsContent()).AddTo(bag);
-            _questCompletedEventSubscriber.Subscribe(e => CreateQuestsContent()).AddTo(bag);
+            //_questProgressUpdateEventSubscriber.Subscribe(e => CreateQuestsContent()).AddTo(bag);
+            //_questCompletedEventSubscriber.Subscribe(e => CreateQuestsContent()).AddTo(bag);
             
-            _unlockedCraftingMachineEventSubscriber.Subscribe(e => CreateForgeContent()).AddTo(bag);
+            //_unlockedCraftingMachineEventSubscriber.Subscribe(e => CreateForgeContent()).AddTo(bag);
             
-            _craftingFinishedEventSubscriber.Subscribe(e => CreateInventoryContent()).AddTo(bag);
-            _craftingProgressUpdatedEventSubscriber.Subscribe(e => OnCraftingProgressUpdated(e.CraftingMachine, e.Recipe, e.ElapsedTime)).AddTo(bag);
+            _craftingFinishedEventSubscriber.Subscribe(e => OnCraftingFinished(e.CraftingResult, e.Recipe)).AddTo(bag);
+            //_craftingProgressUpdatedEventSubscriber.Subscribe(e => OnCraftingProgressUpdated(e.CraftingMachine, e.Recipe, e.ElapsedTime)).AddTo(bag);
             
             _eventsBagDisposable = bag.Build();
+        }
+
+        private void OnCraftingFinished(CraftingResult craftingResult, Recipe recipe)
+        {
+            
         }
 
         private void CreateInventoryContent()

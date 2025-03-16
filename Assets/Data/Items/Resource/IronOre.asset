@@ -16,3 +16,4 @@ MonoBehaviour:
   _itemName: Iron Ore
   _itemDescription: Raw material used to create metal-based items
   _itemType: 0
+  _itemIcon: {fileID: 21300000, guid: d7c1eddbdefbbb9448cf4a7e43207698, type: 3}

@@ -16,3 +16,4 @@ MonoBehaviour:
   _itemName: Gold Ingot
   _itemDescription: Refined bar smelted from Gold Ore
   _itemType: 1
+  _itemIcon: {fileID: 21300000, guid: d0162173d0e19d042903082a70b466c7, type: 3}

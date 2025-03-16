@@ -16,3 +16,4 @@ MonoBehaviour:
   _itemName: Ember Dust
   _itemDescription: Powdered substance that enhances forging success
   _itemType: 0
+  _itemIcon: {fileID: 21300000, guid: 15bf8f31f7d64724ebfd1ae9c03c3127, type: 3}

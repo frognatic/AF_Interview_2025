@@ -11,6 +11,7 @@ namespace AF_Interview.Items
         [SerializeField] protected string _itemName;
         [SerializeField] protected string _itemDescription;
         [SerializeField] protected ItemType _itemType;
+        [SerializeField] protected Sprite _itemIcon;
 
         #endregion
         
@@ -20,6 +21,7 @@ namespace AF_Interview.Items
         public string ItemName { get => _itemName; set => _itemName = value; }
         public string ItemDescription { get => _itemDescription; set => _itemDescription = value; }
         public ItemType ItemType { get => _itemType; set => _itemType = value; }
+        public Sprite ItemIcon { get => _itemIcon; set => _itemIcon = value; }
 
         #endregion
     }

@@ -16,3 +16,4 @@ MonoBehaviour:
   _itemName: Radiant Staff
   _itemDescription: Enchanted staff requiring Flame-Gold Ingot + Ember Dust
   _itemType: 1
+  _itemIcon: {fileID: 21300000, guid: fa913d4aadc3fa84c8fa22d4add85e1a, type: 3}

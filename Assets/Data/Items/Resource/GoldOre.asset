@@ -16,3 +16,4 @@ MonoBehaviour:
   _itemName: Gold Ore
   _itemDescription: Raw material used to create gold-based items
   _itemType: 0
+  _itemIcon: {fileID: 21300000, guid: 2295d98b8d3dd8040b5e6d29d6928800, type: 3}

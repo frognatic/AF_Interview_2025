@@ -16,3 +16,4 @@ MonoBehaviour:
   _itemName: Ember Blade
   _itemDescription: Blazing sword created by fusing steel with Ember Dust
   _itemType: 1
+  _itemIcon: {fileID: 21300000, guid: 9d9f614d025b1224ca5892e7d8b95c59, type: 3}

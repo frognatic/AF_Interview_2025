@@ -16,3 +16,4 @@ MonoBehaviour:
   _itemName: Draconic Shield
   _itemDescription: Advanced shield reinforced with Dragon Scale
   _itemType: 1
+  _itemIcon: {fileID: 21300000, guid: 69d15bf9773e471439d733b66d173179, type: 3}

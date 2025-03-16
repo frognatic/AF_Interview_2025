@@ -16,3 +16,4 @@ MonoBehaviour:
   _itemName: Enhanced Radiant Staff
   _itemDescription: Runic variant of the Radiant Staff with improved magical power
   _itemType: 1
+  _itemIcon: {fileID: 21300000, guid: 0992f10ee56350c4ca976fc3e20cdfe4, type: 3}
