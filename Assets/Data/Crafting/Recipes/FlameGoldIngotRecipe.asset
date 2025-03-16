@@ -15,7 +15,7 @@ MonoBehaviour:
   _recipeName: Flame-Gold Ingot
   _ingredients:
     _serializedList:
-    - Key: {fileID: 11400000, guid: 474a84b8a5d645a4397d94b186e9d8ad, type: 2}
+    - Key: {fileID: 11400000, guid: dfd00aec86144d145898bb2e543cdb4b, type: 2}
       Value: 1
     - Key: {fileID: 11400000, guid: 016a331c978e0c641b783009dafd2be9, type: 2}
       Value: 1

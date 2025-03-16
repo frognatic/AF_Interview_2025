@@ -20,13 +20,13 @@ namespace AF_Interview.Crafting
         #endregion
         
         #region Properties
-        
-        public string RecipeName {get => _recipeName; set => _recipeName = value; }
-        public SerializedDictionary<ItemSO, int> Ingredients { get => _ingredients; set => _ingredients = value; }
-        public SerializedDictionary<ItemSO, int> CraftingResults { get => _craftingResults; set => _craftingResults = value; }
-        public int CraftingTimeInSeconds { get => _craftingTimeInSecondsInSeconds; set => _craftingTimeInSecondsInSeconds = value; }
-        public int CraftingSuccessRateInPercent { get => _craftingSuccessRateInPercent; set => _craftingSuccessRateInPercent = value; }
-        
+
+        public string RecipeName => _recipeName;
+        public SerializedDictionary<ItemSO, int> Ingredients => _ingredients;
+        public SerializedDictionary<ItemSO, int> CraftingResults => _craftingResults;
+        public int CraftingTimeInSeconds => _craftingTimeInSecondsInSeconds;
+        public int CraftingSuccessRateInPercent => _craftingSuccessRateInPercent;
+
         #endregion
     }
 }

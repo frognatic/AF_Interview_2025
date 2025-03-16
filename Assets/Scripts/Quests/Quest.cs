@@ -5,7 +5,6 @@ using AF_Interview.Items;
 
 namespace AF_Interview.Quests
 {
-    [Serializable]
     public class Quest
     {
         public QuestSO QuestData { get; set; }
@@ -45,7 +44,6 @@ namespace AF_Interview.Quests
         }
     }
 
-    [Serializable]
     public class QuestProgress
     {
         public ItemSO RequiredItem { get; set; }

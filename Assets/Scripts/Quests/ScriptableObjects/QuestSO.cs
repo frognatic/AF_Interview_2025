@@ -20,11 +20,11 @@ namespace AF_Interview.Quests
 
         #region Properties
         
-        public int QuestId { get => _questId; set => _questId = value; }
-        public string QuestName { get => _questName; set => _questName = value; }
-        public List<CraftingMachineSO> CraftingMachinesToUnlock { get => _craftingMachinesToUnlock; set => _craftingMachinesToUnlock = value; }
-        public SerializedDictionary<ItemSO, int> FinishRequirements { get => _finishRequirements; set => _finishRequirements = value; }
-        
+        public int QuestId => _questId;
+        public string QuestName => _questName;
+        public List<CraftingMachineSO> CraftingMachinesToUnlock => _craftingMachinesToUnlock;
+        public SerializedDictionary<ItemSO, int> FinishRequirements => _finishRequirements;
+
         #endregion
     }
 }

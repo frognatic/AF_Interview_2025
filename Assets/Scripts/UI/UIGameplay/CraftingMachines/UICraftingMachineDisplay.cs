@@ -38,7 +38,6 @@ namespace AF_Interview.UI.UIGameplay
         #region Injected Fields
 
         [Inject] private UIRecipeDisplay.Factory _recipeDisplayFactory;
-        [Inject] private ISubscriber<CraftingStartedEvent> _craftingStartedEventSubscriber;
         [Inject] private ISubscriber<CraftingFinishedEvent> _craftingFinishedEventSubscriber;
         [Inject] private ISubscriber<CraftingProgressUpdatedEvent> _craftingProgressUpdatedEventSubscriber;
 
@@ -102,7 +101,6 @@ namespace AF_Interview.UI.UIGameplay
         {
             var bag = DisposableBag.CreateBuilder();
             
-            _craftingStartedEventSubscriber.Subscribe(e => OnCraftingStarted(e.CraftingMachine, e.Recipe)).AddTo(bag);
             _craftingFinishedEventSubscriber.Subscribe(e => OnCraftingFinished(e.CraftingMachine)).AddTo(bag);
             _craftingProgressUpdatedEventSubscriber.Subscribe(e => 
                 OnCraftingProgressUpdated(e.CraftingMachine, e.CraftingProgressTime)).AddTo(bag);
@@ -113,14 +111,6 @@ namespace AF_Interview.UI.UIGameplay
         private void OnDestroy()
         {
             _eventsBagDisposable?.Dispose();
-        }
-
-        private void OnCraftingStarted(CraftingMachine craftingMachine, Recipe recipe)
-        {
-            if (craftingMachine != _craftingMachine)
-            {
-                return;
-            }
         }
 
         private void OnCraftingFinished(CraftingMachine craftingMachine)
@@ -141,7 +131,6 @@ namespace AF_Interview.UI.UIGameplay
             }
             
             _craftingProgressPanel.SetActive(true);
-
             _craftingProgressSlider.value = craftingProgress;
         }
 

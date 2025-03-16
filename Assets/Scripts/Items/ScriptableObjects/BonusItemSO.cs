@@ -14,9 +14,9 @@ namespace AF_Interview.Items
         
         #region Properties
 
-        public BonusType BonusType { get => _bonusType; set => _bonusType = value; }
-        public int BonusValue { get => _bonusValue; set => _bonusValue = value; }
-        
+        public BonusType BonusType => _bonusType;
+        public int BonusValue => _bonusValue;
+
         #endregion
     }
     

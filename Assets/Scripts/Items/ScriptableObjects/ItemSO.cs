@@ -17,11 +17,11 @@ namespace AF_Interview.Items
         
         #region Properties
 
-        public int ItemId { get => _itemId; set => _itemId = value; }
-        public string ItemName { get => _itemName; set => _itemName = value; }
-        public string ItemDescription { get => _itemDescription; set => _itemDescription = value; }
-        public ItemType ItemType { get => _itemType; set => _itemType = value; }
-        public Sprite ItemIcon { get => _itemIcon; set => _itemIcon = value; }
+        public int ItemId => _itemId;
+        public string ItemName => _itemName;
+        public string ItemDescription => _itemDescription;
+        public ItemType ItemType => _itemType;
+        public Sprite ItemIcon => _itemIcon;
 
         #endregion
     }

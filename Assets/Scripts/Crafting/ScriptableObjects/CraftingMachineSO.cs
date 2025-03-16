@@ -18,12 +18,12 @@ namespace AF_Interview.Crafting
         
         #region Properties
         
-        public string MachineId { get => _machineId; set => _machineId = value; }
-        public string MachineName { get => _machineName; set => _machineName = value; }
-        public string MachineDescription { get => _machineDescription; set => _machineDescription = value; }
-        public List<RecipeSO> AvailableRecipes { get => _availableRecipes; set => _availableRecipes = value; }
-        public Sprite MachineIcon { get => _machineIcon; set => _machineIcon = value; }
-        
+        public string MachineId => _machineId;
+        public string MachineName => _machineName;
+        public string MachineDescription => _machineDescription;
+        public List<RecipeSO> AvailableRecipes => _availableRecipes;
+        public Sprite MachineIcon => _machineIcon;
+
         #endregion
     }
 }
