@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 namespace AF_Interview.UI.UIGameplay
 {
-    public class UIInventoryGridDataModel
+    public class UIInventoryPanelDataModel : DataModel
     {
         public List<Item> AvailableItemsList;
     }
     
-    public class UIInventoryGrid : MonoBehaviour
+    public class UIInventoryPanel : UIBasePanel
     {
         #region Serialized Fields
 
@@ -28,15 +28,20 @@ namespace AF_Interview.UI.UIGameplay
         #region Non-Serialized Fields
 
         private readonly List<UIInventorySlot> _inventorySlots = new List<UIInventorySlot>();
-        private UIInventoryGridDataModel _dataModel;
+        
+        #endregion
+        
+        #region Properties
+        
+        protected new UIInventoryPanelDataModel DataModel => (UIInventoryPanelDataModel)base.DataModel;
         
         #endregion
 
         #region Public Methods
 
-        public void Prepare(UIInventoryGridDataModel dataModel)
+        public override void Prepare(DataModel dataModel)
         {
-            _dataModel = dataModel;
+            base.Prepare(dataModel);
             
             PrepareSlots();
             RefreshSlots();
@@ -71,12 +76,12 @@ namespace AF_Interview.UI.UIGameplay
 
         private void FillSlots()
         {
-            int availableItemsListCount = _dataModel.AvailableItemsList.Count;
+            int availableItemsListCount = DataModel.AvailableItemsList.Count;
 
             int i = 0;
             for (; i < availableItemsListCount; i++)
             {
-                var dataItem = _dataModel.AvailableItemsList[i];
+                var dataItem = DataModel.AvailableItemsList[i];
                 _inventorySlots[i].SetSlotOccupied(dataItem.ItemData.ItemIcon, dataItem.Amount);
             }
 

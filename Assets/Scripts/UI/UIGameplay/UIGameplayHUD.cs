@@ -12,7 +12,7 @@ namespace AF_Interview.UI.UIGameplay
 {
     public class UIGameplayHUDDataModel
     {
-        public UIInventoryGridDataModel InventoryGridDataModel;
+        public UIInventoryPanel _inventoryPanel;
     }
     
     public class UIGameplayHUD : MonoBehaviour
@@ -27,7 +27,7 @@ namespace AF_Interview.UI.UIGameplay
         [SerializeField] private Transform _forgeContent;
         [SerializeField] private Transform _questsContent;
         
-        [SerializeField] private UIInventoryGrid _inventoryGrid;
+        [SerializeField] private UIInventoryPanel _inventoryPanel;
 
         #endregion
 
@@ -63,7 +63,7 @@ namespace AF_Interview.UI.UIGameplay
 
         public void RefreshInventoryGrid()
         {
-            _inventoryGrid.RefreshSlots();
+            _inventoryPanel.RefreshSlots();
         }
 
         #endregion

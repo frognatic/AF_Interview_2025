@@ -154,20 +154,26 @@ namespace AF_Interview.Systems
         private void StartCrafting(CraftingMachine craftingMachine, Recipe recipe)
         {
             RemoveCraftingIngredients(recipe);
-            _craftingStartedEventPublisher.Publish(new () { Recipe = recipe});
 
             var craftingTime = recipe.RecipeData.CraftingTimeInSeconds - _bonusSystem.GetCraftingTimeReduceBonus();
             if (craftingTime > 0)
             {
-                IEnumerator craftingCoroutine = CraftProcess(craftingMachine, recipe, craftingTime, () => FinishCrafting(craftingMachine, recipe));
-                _craftingProcessesDictionary.Add(craftingMachine, craftingCoroutine);
-                    
-                StartCoroutine(craftingCoroutine);
+                StartCraftingProcess(craftingMachine, recipe, craftingTime);
             }
             else
             {
                 FinishCrafting(craftingMachine, recipe);
             }
+        }
+
+        private void StartCraftingProcess(CraftingMachine craftingMachine, Recipe recipe, int craftingTime)
+        {
+            IEnumerator craftingCoroutine = CraftProcess(craftingMachine, recipe, craftingTime, () => FinishCrafting(craftingMachine, recipe));
+            _craftingProcessesDictionary.Add(craftingMachine, craftingCoroutine);
+                    
+            StartCoroutine(craftingCoroutine);
+            
+            _craftingStartedEventPublisher.Publish(new () { Recipe = recipe});
         }
 
         private void RemoveCraftingIngredients(Recipe recipe)

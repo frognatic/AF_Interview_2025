@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AF_Interview.Bonuses;
 using AF_Interview.Items;
 using Cysharp.Threading.Tasks;
 using MessagePipe;
@@ -11,13 +12,21 @@ namespace AF_Interview.Systems
     {
         #region Non-Serialized Fields
 
-        private Dictionary<BonusType, int> _bonuses = new();
+        private List<Bonus> _bonuses = new List<Bonus>();
 
         #endregion
         
         #region Injected Fields
         
         [Inject] private ItemSystem _itemSystem;
+        
+        [Inject] private BonusFactoryProvider _bonusFactoryProvider;
+
+        #endregion
+
+        #region Properties
+
+        public List<Bonus> Bonuses => _bonuses;
 
         #endregion
         
@@ -33,7 +42,8 @@ namespace AF_Interview.Systems
         }
         public override void InstallBindings(DiContainer container, MessagePipeOptions messagePipeOptions)
         {
-            
+            container.Bind<BonusFactoryProvider>()
+                .AsSingle();
         }
 
         public override async UniTask Init()
@@ -56,10 +66,9 @@ namespace AF_Interview.Systems
         {
             return TryGetBonusValue(BonusType.CraftingSuccessRate);
         }
-
+        
         #endregion
         
-
         #region Private Methods
 
         private void PrepareBonuses()
@@ -72,14 +81,16 @@ namespace AF_Interview.Systems
                 {
                     continue;
                 }
-                    
-                _bonuses.TryAdd(bonusItem.BonusType, bonusItem.BonusValue);
+
+                Bonus bonus = _bonusFactoryProvider.CreateBonus(bonusItem.BonusType, bonusItem.BonusValue);
+                _bonuses.Add(bonus);
             }
         }
 
         private int TryGetBonusValue(BonusType bonusType)
         {
-            return _bonuses.GetValueOrDefault(bonusType, 0);
+            var bonus = _bonuses.Find(x => x.BonusType == bonusType);
+            return bonus?.BonusValue ?? 0;
         }
 
         #endregion
