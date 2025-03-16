@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a5d8a7cd660ba459ab0f88fdb7799d, type: 3}
+  m_Name: IronIngotRecipe
+  m_EditorClassIdentifier: 
+  _recipeName: Iron Ingot
+  _ingredients:
+    _serializedList:
+    - Key: {fileID: 11400000, guid: 04a7d8c9a1b42ce43a49b482542e2ff9, type: 2}
+      Value: 1
+  _craftingResults:
+    _serializedList:
+    - Key: {fileID: 11400000, guid: a8c29438bc9004043aed69c5dc39e66f, type: 2}
+      Value: 1
+  _craftingTimeInSecondsInSeconds: 2
+  _craftingSuccessRateInPercent: 100

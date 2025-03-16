@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9cbaa9b2dde2334c9036643b515280d, type: 3}
+  m_Name: DragonForge
+  m_EditorClassIdentifier: 
+  _machineId: 5
+  _machineName: Dragon Forge
+  _machineDescription: Handles high-tier forging with Dragon Scale
+  _availableRecipes:
+  - {fileID: 11400000, guid: 2797dee034cb0a645bbe50bcc06ec119, type: 2}
+  - {fileID: 11400000, guid: 9f43128d2669b8a499a4ea61a1ddab7b, type: 2}
+  _machineIcon: {fileID: 21300000, guid: c0a78284adf500a45a8e9536323f0bcc, type: 3}

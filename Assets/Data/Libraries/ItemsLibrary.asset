@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f89221794eee51479a8d59bfcc48e34, type: 3}
+  m_Name: ItemsLibrary
+  m_EditorClassIdentifier: 
+  _allItems:
+  - {fileID: 11400000, guid: 189c171c24bb84e4a911a84543ae2771, type: 2}
+  - {fileID: 11400000, guid: 3dc436c783a1ca6419fc6bd5a2ac35d0, type: 2}
+  - {fileID: 11400000, guid: 016a331c978e0c641b783009dafd2be9, type: 2}
+  - {fileID: 11400000, guid: 474a84b8a5d645a4397d94b186e9d8ad, type: 2}
+  - {fileID: 11400000, guid: 04a7d8c9a1b42ce43a49b482542e2ff9, type: 2}
+  - {fileID: 11400000, guid: 8e80e81d0ed5f8e4ab94ce8ae17fa0e8, type: 2}
+  - {fileID: 11400000, guid: 6bbaae49925674f468b46834ecbc9278, type: 2}
+  - {fileID: 11400000, guid: bad879e5540b9c849859ebd970356d5d, type: 2}
+  - {fileID: 11400000, guid: 1922aaac610c9f04683259fb9725a8e2, type: 2}
+  - {fileID: 11400000, guid: 55fd5d7c27ebd504f88987aa2620e66b, type: 2}
+  - {fileID: 11400000, guid: 76c35fa72e48d3b4db667dbaca0ebb90, type: 2}
+  - {fileID: 11400000, guid: dfd00aec86144d145898bb2e543cdb4b, type: 2}
+  - {fileID: 11400000, guid: a8c29438bc9004043aed69c5dc39e66f, type: 2}
+  - {fileID: 11400000, guid: a3dd27aef4c089b4793575205024cb2c, type: 2}
+  - {fileID: 11400000, guid: 368f9cb3108cf944e883049b56b85c1c, type: 2}
+  - {fileID: 11400000, guid: cb4fbe1e2d6652e4a96a89b78b1f3518, type: 2}
+  - {fileID: 11400000, guid: 84f6ec433ac85564ba311807b51d0c1b, type: 2}
+  _initialItemsData:
+  - _itemData: {fileID: 11400000, guid: 04a7d8c9a1b42ce43a49b482542e2ff9, type: 2}
+    _spawnAmountRange: {x: 3, y: 5}
+    _spawnChance: 100
+  - _itemData: {fileID: 11400000, guid: 474a84b8a5d645a4397d94b186e9d8ad, type: 2}
+    _spawnAmountRange: {x: 1, y: 3}
+    _spawnChance: 100
+  - _itemData: {fileID: 11400000, guid: 016a331c978e0c641b783009dafd2be9, type: 2}
+    _spawnAmountRange: {x: 0, y: 2}
+    _spawnChance: 100
+  - _itemData: {fileID: 11400000, guid: 3dc436c783a1ca6419fc6bd5a2ac35d0, type: 2}
+    _spawnAmountRange: {x: 0, y: 2}
+    _spawnChance: 100
+  - _itemData: {fileID: 11400000, guid: 189c171c24bb84e4a911a84543ae2771, type: 2}
+    _spawnAmountRange: {x: 0, y: 1}
+    _spawnChance: 100
+  - _itemData: {fileID: 11400000, guid: cb4fbe1e2d6652e4a96a89b78b1f3518, type: 2}
+    _spawnAmountRange: {x: 1, y: 1}
+    _spawnChance: 25
+  - _itemData: {fileID: 11400000, guid: 84f6ec433ac85564ba311807b51d0c1b, type: 2}
+    _spawnAmountRange: {x: 1, y: 1}
+    _spawnChance: 25

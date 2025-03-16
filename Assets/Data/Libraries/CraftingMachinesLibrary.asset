@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03eb0d63a4215bb438076d1dfcc4cbe1, type: 3}
+  m_Name: CraftingMachinesLibrary
+  m_EditorClassIdentifier: 
+  _craftingMachines:
+  - {fileID: 11400000, guid: da570c01a76fa984c8c4e06e9b12c669, type: 2}
+  - {fileID: 11400000, guid: 65ae80b504873394390db987b095a513, type: 2}
+  - {fileID: 11400000, guid: 98942f68b31249c49816242124388699, type: 2}
+  - {fileID: 11400000, guid: 23f4405245c4cc04a8862bc2e680fcae, type: 2}
+  - {fileID: 11400000, guid: f74ed02dac4b377458f5a985cd4e9166, type: 2}
+  _initialCraftingMachines:
+  - {fileID: 11400000, guid: da570c01a76fa984c8c4e06e9b12c669, type: 2}
+  - {fileID: 11400000, guid: 65ae80b504873394390db987b095a513, type: 2}
+  - {fileID: 11400000, guid: 98942f68b31249c49816242124388699, type: 2}
